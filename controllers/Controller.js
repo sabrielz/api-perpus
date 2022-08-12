@@ -1,11 +1,11 @@
 // const fs = require('fs');
 // const path = require('path');
 
-module.exports = (Model, Knex) => new class Controller {
+module.exports = (Model, knex) => new class Controller {
 
 	constructor() {
 		this.Model = Model;
-		this.Knex = Knex;
+		this.knex = knex;
 		this.tableName = Model.tableName;
 	}
 
@@ -22,7 +22,7 @@ module.exports = (Model, Knex) => new class Controller {
 	}
 
 	all = (req, res) => {
-		this.Model.query().select([this.tableName+'.*'])
+		knex(this.tableName).query().select([this.tableName+'.*'])
 		.then(data => res.status(200).send({
 			message: 'Table data selected successfully!',
 			data: data
@@ -35,7 +35,7 @@ module.exports = (Model, Knex) => new class Controller {
 	find = (req, res) => {
 		const param = this.getparam(req.params);
 	
-		this.Model.query().where(param.key, param.value)
+		knex(this.tableName).query().where(param.key, param.value)
 		.then(data => res.status(200).send({
 			message: 'Table data finded successfully!',
 			data: data
@@ -50,7 +50,7 @@ module.exports = (Model, Knex) => new class Controller {
 			message: 'Validation error, input value required!',
 		})
 	
-		this.Model.query().insertGraph(req.body)
+		knex(this.tableName).query().insertGraph(req.body)
 		.then(data => res.status(200).send({
 			message: 'Data inserted successfully!',
 			data: data
@@ -67,7 +67,7 @@ module.exports = (Model, Knex) => new class Controller {
 	
 		const param = this.getparam(req.params);
 	
-		this.Model.query().patch(req.body).where(param.key, param.value)
+		knex(this.tableName).query().patch(req.body).where(param.key, param.value)
 		.then(data => res.status(200).send({
 			message: 'Data updated successfully!',
 			data: data
@@ -80,7 +80,7 @@ module.exports = (Model, Knex) => new class Controller {
 	destroy = (req, res) => {
 		const param = this.getparam(req.params);
 
-		this.Model.query().where(param.key, param.value).delete()
+		knex(this.tableName).query().where(param.key, param.value).delete()
 		.then(data => res.status(200).send({
 			message: 'Data deleted successfully!',
 			data: data
@@ -91,11 +91,11 @@ module.exports = (Model, Knex) => new class Controller {
 	}
 
 	migrate = (req, res) => {
-		Knex.schema.hasTable(this.tableName)
+		knex.schema.hasTable(this.tableName)
 		.then(res => {
 			console.log(res);
 			if (res) {
-				Knex.schema.dropTable(this.tableName)
+				knex.schema.dropTable(this.tableName)
 				.catch(err => res.status(500).send({
 					message: 'Some error occured when dropping table!',
 					err: err
@@ -103,7 +103,7 @@ module.exports = (Model, Knex) => new class Controller {
 			}
 		}).catch(err => console.log(err))
 		
-		Knex.schema.createTable(this.tableName, table => this.Model.tableSchema(table))
+		knex.schema.createTable(this.tableName, table => this.Model.tableSchema(table))
 		.then(data => res.status(200).send({
 			message: 'Table created successfully!',
 			data: data
@@ -114,10 +114,10 @@ module.exports = (Model, Knex) => new class Controller {
 	}
 
 	seed = (req, res) => {
-		this.Model.query().truncate()
+		knex(this.tableName).query().truncate()
 		.then(() => {
 
-			this.Model.query().insertGraph(this.getseed())
+			knex(this.tableName).query().insertGraph(this.getseed())
 			.then(data => res.status(200).send({
 				message: 'Table truncated and seeded successfull!',
 				data: data

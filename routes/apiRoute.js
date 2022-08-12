@@ -10,4 +10,6 @@ module.exports = app => {
 
 	app.get('/api/truncate/:table', Controller.truncate);
 
+	app.get('/api/seed/:table', Controller.seed);
+
 }

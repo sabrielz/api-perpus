@@ -1,10 +1,9 @@
 const { Model, knex } = require('../config/objection');
-const hash = require('md5');
 
-class User extends Model {
+class Modul extends Model {
 
 	static get tableName() {
-		return 'users';
+		return 'moduls';
 	}
 
 	static get idColumn() {
@@ -13,31 +12,29 @@ class User extends Model {
 
 	static tableSchema(table) {
 		table.increments('id').primary();
-		table.string('nama');
-		table.string('email').unique();
-		table.string('password').defaultTo(hash('123456'));
-		table.string('ttl');
-		table.string('sekolah');
-		table.text('alasan');
-		table.string('hp');
+		table.string('title');
+		table.string('slug').unique();
+		table.string('desc');
+		table.string('thumbnail');
+		table.string('type');
+		table.timestamps(true, true, false);
 	}
 
-	static get jsonSchema() {
-		return {
-			type: 'object',
-			required: ['key'],
-			properties: {
-				// id: { type: 'integer' },
-				nama: { type: 'string' },
-				email: { type: 'string' },
-				password: { type: 'string' },
-				ttl: { type: 'string' },
-				sekolah: { type: 'string' },
-				alasan: { type: 'string' },
-				hp: { type: 'string' },
-			}
-		};
-	}
+	// static get jsonSchema() {
+	// 	return {
+	// 		type: 'object',
+	// 		required: ['key'],
+	// 		properties: {
+	// 			id: { type: 'integer' },
+	// 			nama: { type: ['string', 'null'] },
+	// 			hp: { type: ['string', 'null'] },
+	// 			email: { type: 'string' },
+	// 			password: { type: 'string' },
+	// 			// firstName: { type: 'string', minLength: 1, maxLength: 255 },
+	// 			// lastName: { type: 'string', minLength: 1, maxLength: 255 },
+	// 		}
+	// 	};
+	// }
 
 	// static get relationMappings() {
 	// 	// Importing models here is one way to avoid require loops.
@@ -157,6 +154,6 @@ class User extends Model {
 }
 
 module.exports = {
-	Model: User,
+	Model: Modul,
 	knex: knex
 }
