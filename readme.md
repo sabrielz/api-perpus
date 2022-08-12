@@ -1,6 +1,6 @@
 # Dokumentasi API Perpus
 
-<style>
+<style style="display: none">
     ol li ol {
         list-style-type: upper-alpha
     }
