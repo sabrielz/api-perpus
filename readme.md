@@ -19,7 +19,7 @@
         <h2 style="font-weight: bold; font-size: 1.5rem;">
             Authentication
         </h2>
-        <ol style="margin-left: -1rem;">
+        <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li>
                 <h3 style="font-size: 1.25rem;">
                     Login
