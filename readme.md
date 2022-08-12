@@ -19,8 +19,8 @@
         <h2 style="font-weight: bold; font-size: 1.5rem;">
             Table Utility
         </h2>
-        <ol style="margin-left: -1rem; list-style-type: upper-alpha">
-            <li>
+        <ol style="margin-left: -1rem">
+            <li style="list-style-type: upper-alpha">
                 <h3 style="font-size: 1.25rem;">
                     Login
                 </h3>
