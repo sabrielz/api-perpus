@@ -1,5 +1,21 @@
 # Dokumentasi API Perpus
 
+<style>
+    ol li ol {
+        list-style-type: upper-alpha
+    }
+
+    ol:nth-child(2) li h2 {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    ol:nth-child(2) li h3 {
+        /* font-weight: bold; */
+        font-size: 1.25rem;
+    }
+</style>
+
 ## Daftar Isi
 <ol style="margin-left: -1rem">
     <li><a href="#knowledge">Basic Knowlege</a></li>
@@ -42,19 +58,3 @@ axios.post('http:localhost:4000/login', {
         </ol>
     </li>
 </ol>
-
-<style>
-    ol li ol {
-        list-style-type: upper-alpha
-    }
-
-    ol:nth-child(2) li h2 {
-        font-weight: bold;
-        font-size: 1.5rem;
-    }
-
-    ol:nth-child(2) li h3 {
-        /* font-weight: bold; */
-        font-size: 1.25rem;
-    }
-</style>
