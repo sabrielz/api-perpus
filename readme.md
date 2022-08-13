@@ -215,8 +215,9 @@ CREATE TABLE `moduls` (
             drop table, truncate table, and up to migrate and drop
             table in same time. This entry point does not require
             <b>json web token</b> as middleware to process. All of
-            this entry point using <b>GET</b> method, and except
-            <b>seed</b> point will contain this value.
+            this entry point using <b>GET</b> method. <code>
+            remigrate, migrate, drop, truncate</code> point will
+            contain this value.
         </p>
 <pre>
 {
@@ -288,9 +289,8 @@ CREATE TABLE `moduls` (
                     Utility to generate random data and insert
                     it to table for debugging reason. The seed
                     schema file located in <code>seeds/:modelName
-                    </code>. Different from the others, this entry
-                    point will return data that been inserted to
-                    table.
+                    </code>. This entry point will return data
+                    that been inserted to table.
                 </p>
 <pre>
 {
@@ -300,6 +300,25 @@ CREATE TABLE `moduls` (
         ...
         <b><i>object</i></b> // inserted data
     ]
+}
+</pre>
+            </li>
+            <li id="count" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    Count
+                </h3>
+                <code>
+                    /api/count/:model
+                </code>
+                <p>
+                    Utility to get number of rows based id in a table.
+                    This entry point will return number of rows.
+                </p>
+<pre>
+{
+    message: <b><i>string</i></b>,
+    ?err: <b><i>object</i></b>, // knex throw error
+    ?data: <b><i>number</i></b> // number of rows
 }
 </pre>
             </li>
