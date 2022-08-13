@@ -3,9 +3,16 @@
 ## Daftar Isi
 <ol style="margin-left: -1rem">
     <li><a href="#dependency">Dependencies</a></li>
+    <li><a href="#config">Config</a></li>
     <li><a href="#response">Response Value</a></li>
     <li><a href="#middleware">Middleware</a></li>
     <li><a href="#basic">Basic Usage</a></li>
+    <li><a href="#model">Model Schema</a>
+        <ol style="margin-left: -1rem; list-style-type: upper-alpha">
+            <li><a href="#modelUser">User</a></li>
+            <li><a href="#modelModul">Modul</a></li>
+        </ol>
+    </li>
     <li><a href="#api">Utility / Schema Control</a>
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li><a href="#remigrate">Remigrate</a></li>
@@ -51,6 +58,16 @@
             </ol>
         </p>
     </li>
+    <li id="config" style="margin-bottom: 2rem;">
+        <h2 style="font-weight: bold; font-size: 1.5rem;">
+            Config
+        </h2>
+        <p>
+            The file config stored in <code>config/:configName</code>.
+            For database connection, config file stored as <code>
+            knex.js</code> in <b>development</b> key.
+        </p>
+    </li>
     <li id="response" style="margin-bottom: 2rem;">
         <h2 style="font-weight: bold; font-size: 1.5rem;">
             Response Value
@@ -71,7 +88,7 @@
             Or you can use <b><i>status code</i></b> to
             detect error. The <b><i>status code</i></b>
             always contain <b>200</b> if every request
-            processed successfully, or contain 
+            processed successfully, or contain
             <b>400 < 404</b> if request need some value to send
             with request like <b>body</b> or <b>url params</b>,
             and contain <b>500</b> if some error occured when
@@ -138,6 +155,56 @@ axios.post('../modul', {
     // Code to run if request succees
 })
 </pre>
+    </li>
+    <li id="api" style="margin-bottom: 2rem;">
+        <h2 style="font-weight: bold; font-size: 1.5rem;">
+            Table Schema
+        </h2>
+        <p>
+            Each table schema defined in <b>Model</b> class
+            located in <code>models/:modelName</code>. The
+            following contains schema all table.
+        </p>
+        <ol style="margin-left: -1rem; list-style-type: upper-alpha">
+            <li id="modelUser" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    User
+                </h3>
+<pre>
+CREATE TABLE `users` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `nama` varchar(255) DEFAULT NULL,
+    `email` varchar(255) DEFAULT NULL,
+    `password` varchar(255) DEFAULT '123456', // md5
+    `ttl` varchar(255) DEFAULT NULL,
+    `sekolah` varchar(255) DEFAULT NULL,
+    `alasan` text DEFAULT NULL,
+    `hp` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+</pre>
+            </li>
+            <li id="modelModul" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    Modul
+                </h3>
+<pre>
+CREATE TABLE `moduls` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `title` varchar(255) DEFAULT NULL,
+    `slug` varchar(255) DEFAULT NULL,
+    `desc` varchar(255) DEFAULT NULL,
+    `thumbnail` varchar(255) DEFAULT NULL,
+    `type` varchar(255) DEFAULT NULL,
+    `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `moduls_slug_unique` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+</pre>
+            </li>
+        </ol>
     </li>
     <li id="api" style="margin-bottom: 2rem;">
         <h2 style="font-weight: bold; font-size: 1.5rem;">
@@ -267,7 +334,7 @@ axios.get('.../api/remigrate/modul')
                     /login
                 </code>
                 <p>
-                    Response value will have json web 
+                    Response value will have json web
                     <b>token</b> if authentication successfull.
                 </p>
 <pre>
@@ -338,7 +405,7 @@ axios.get('.../api/remigrate/modul')
                 </code>
                 <p>
                     The <b>GET</b> method will paginate automatically
-                    with 8 items. It paginate from sql query with 
+                    with 8 items. It paginate from sql query with
                     <code>OFFSET</code> and <code>LIMIT</code>.
                     You can change paginate limit in <code>
                     controllers/modulController</code>.
