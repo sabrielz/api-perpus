@@ -4,7 +4,6 @@ let sluger = require('slugify');
 module.exports = knex => {
 	let seeds = [];
 	let type = ['ebook', 'video'];
-	console.log(Math.floor(Math.random() * 2));
 
 	for (var i = 0; i < 50; i++) {
 		let title = faker({ exactly: 6, join: ' '});

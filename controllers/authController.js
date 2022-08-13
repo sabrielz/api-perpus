@@ -4,7 +4,7 @@ const hash = require('md5');
 
 exports.login = (req, res) => {
 	let body = req.body;
-	if (!req.body || !req.body.length) return res.status(400).send({
+	if (!req.body || Object.keys(req.body).length < 1) return res.status(400).send({
 		message: 'Required data to sign up!',
 		err: {}
 	});
@@ -44,14 +44,16 @@ exports.login = (req, res) => {
 }
 
 exports.register = (req, res) => {
-	if (!req.body || !req.body.length) return res.status(400).send({
-		message: 'Required data to sign up!',
-		err: {}
-	});
+	if (!req.body || Object.keys(req.body).length < 1) {
+		return res.status(400).send({
+			message: 'Required data to sign up!',
+			err: {}
+		});
+	}
 
 	let body = req.body, insert = {
 		nama: body.nama,
-		password: hash(body.password),
+		password: hash(body.password || '123456'),
 		email: body.email,
 		ttl: body.ttl,
 		sekolah: body.sekolah,

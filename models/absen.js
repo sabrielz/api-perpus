@@ -19,8 +19,8 @@ class Absen extends Model {
 		table.timestamp('tanggal').defaultTo(knex.fn.now());
 		// table.timestamps(true, true, false);
 		table.integer('user_id').unsigned();
-		table.foreign('user_id').references('users.id')
-		.onDelete('cascade').onUpdate('cascade')
+		// table.foreign('user_id').references('users.id')
+		// .onDelete('cascade').onUpdate('cascade')
 	}
 
 	// static get jsonSchema() {
@@ -38,6 +38,19 @@ class Absen extends Model {
 	// 		}
 	// 	};
 	// }
+
+	static get relationMappings() {
+		return {
+			user: {
+				relation: Model.BelongsToOneRelation,
+				modelClass: require('./user'),
+				join: {
+					from: 'absens.user_id',
+					to: 'users.id'
+				}
+			}
+		}
+	}
 
 	// static get relationMappings() {
 	// 	// Importing models here is one way to avoid require loops.

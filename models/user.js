@@ -22,22 +22,35 @@ class User extends Model {
 		table.string('hp');
 	}
 
-	static get jsonSchema() {
+	static get relationMappings() {
 		return {
-			type: 'object',
-			required: ['key'],
-			properties: {
-				// id: { type: 'integer' },
-				nama: { type: 'string' },
-				email: { type: 'string' },
-				password: { type: 'string' },
-				ttl: { type: 'string' },
-				sekolah: { type: 'string' },
-				alasan: { type: 'string' },
-				hp: { type: 'string' },
+			absen: {
+				relation: Model.HasManyRelation,
+				modelClass: require('./absen'),
+				join: {
+					from: 'users.id',
+					to: 'absens.user_id'
+				}
 			}
-		};
+		}
 	}
+
+	// static get jsonSchema() {
+	// 	return {
+	// 		type: 'object',
+	// 		required: ['key'],
+	// 		properties: {
+	// 			// id: { type: 'integer' },
+	// 			nama: { type: 'string' },
+	// 			email: { type: 'string' },
+	// 			password: { type: 'string' },
+	// 			ttl: { type: 'string' },
+	// 			sekolah: { type: 'string' },
+	// 			alasan: { type: 'string' },
+	// 			hp: { type: 'string' },
+	// 		}
+	// 	};
+	// }
 
 	// static get relationMappings() {
 	// 	// Importing models here is one way to avoid require loops.
