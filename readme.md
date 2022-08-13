@@ -156,12 +156,12 @@ axios.post('../modul', {
 })
 </pre>
     </li>
-    <li id="api" style="margin-bottom: 2rem;">
+    <li id="model" style="margin-bottom: 2rem;">
         <h2 style="font-weight: bold; font-size: 1.5rem;">
-            Table Schema
+            Model Schema
         </h2>
         <p>
-            Each table schema defined in <b>Model</b> class
+            All table schema defined in <b>Model</b> class
             located in <code>models/:modelName</code>. The
             following contains schema all table.
         </p>
