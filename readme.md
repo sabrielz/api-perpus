@@ -173,22 +173,22 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
         <p>
             The module rest has 2 type, <b>ebook</b> and
             <b>video</b>. It detected automatically in first
-            url path, `/ebook` and `/video`.
+            url path, <code>/ebook</code> and <code>/video</code>.
         </p>
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li id="moduleGet">
                 <h3 style="font-size: 1.25rem;">
                     Get
-                    <code style="font-size: 1rem;">
-                        /<b><i>:type</i></b>
-                    `
                 </h3>
+                <code style="font-size: 1rem;">
+                    /<b><i>:type</i></b>
+                </code>
                 <p>
                     The <b>GET</b> method will paginate automatically
                     with 8 items. It paginate from sql query with 
-                    `OFFSET` and `LIMIT`.
-                    You can change paginate limit in `
-                    controllers/modulController`.
+                    <code>OFFSET</code> and <code>LIMIT</code>.
+                    You can change paginate limit in <code>
+                    controllers/modulController</code>.
                 </p>
 <pre>
 {
@@ -204,10 +204,10 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
             <li id="modulePost">
                 <h3 style="font-size: 1.25rem;">
                     Post
-                    <code style="font-size: 1rem;">
-                        /<b><i>:type</i></b>
-                    `
                 </h3>
+                <code style="font-size: 1rem;">
+                    /<b><i>:type</i></b>
+                </code>
                 <p>
                     The <b>POST</b> method require parameter that
                     contain data to insert, otherwise will return
@@ -224,10 +224,10 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
             <li id="modulePut">
                 <h3 style="font-size: 1.25rem;">
                     Put
-                    <code style="font-size: 1rem;">
-                        /<b><i>:type</i></b>/<b><i>:id</i></b>
-                    `
                 </h3>
+                <code style="font-size: 1rem;">
+                    /<b><i>:type</i></b>/<b><i>:id</i></b>
+                </code>
                 <p>
                     The <b>PUT</b> method require url parameter that
                     contain id to change, and require data
@@ -244,10 +244,10 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
             <li id="modulePut">
                 <h3 style="font-size: 1.25rem;">
                     Put
-                    <code style="font-size: 1rem;">
-                        /<b><i>:type</i></b>/<b><i>:id</i></b>
-                    `
                 </h3>
+                <code style="font-size: 1rem;">
+                    /<b><i>:type</i></b>/<b><i>:id</i></b>
+                </code>
                 <p>
                     The <b>PUT</b> method require url parameter that
                     contain id to change, and require data
@@ -264,10 +264,10 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
             <li id="moduleDelete">
                 <h3 style="font-size: 1.25rem;">
                     Delete
-                    <code style="font-size: 1rem;">
-                        /<b><i>:type</i></b>/<b><i>:id</i></b>
-                    `
                 </h3>
+                <code style="font-size: 1rem;">
+                    /<b><i>:type</i></b>/<b><i>:id</i></b>
+                </code>
                 <p>
                     The <b>DELETE</b> method only require url parameter that
                     contain id to delete.
