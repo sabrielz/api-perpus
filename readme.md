@@ -111,7 +111,8 @@
 <pre>
 axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
 .then(<b><i>res</i></b> => {
-    if (<b><i>res.err</i></b>) alert('Request failed!') <br>
+    if (<b><i>res.err</i></b>) alert('Request failed!')
+
     // Code to run if request successfully
 })
 </pre>
@@ -220,10 +221,9 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
 <pre>
 axios.get('.../api/remigrate/modul')
 .then(res => {
-    // Check if error
     if (res.err) alert('Request failed')
+    
     // Code to run if success
-    else alert('Request successfull')
 })
 </pre>
             </li>
