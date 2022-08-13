@@ -446,6 +446,27 @@ axios.get('.../api/remigrate/modul')
 }
 </pre>
             </li>
+            <li id="moduleCount">
+                <h3 style="font-size: 1.25rem;">
+                    Count
+                </h3>
+                <code style="font-size: 1rem;">
+                    /<b><i>:type</i></b>/count
+                </code>
+                <p>
+                    This point using <b>GET</b> method,
+                    and <code>COUNT()</code> on Query.
+                    The return value will number of rows
+                    <code>:type</code> in modul.
+                </p>
+<pre>
+{
+    message: <b><i>string</i></b>,
+    ?err: <b><i>object</i></b>, // knex throw error
+    ?data: <b><i>number</i></b> // number of rows :type
+}
+</pre>
+            </li>
             <li id="modulePost">
                 <h3 style="font-size: 1.25rem;">
                     Post
