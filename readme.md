@@ -118,7 +118,7 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
     </li>
     <li id="api" style="margin-bottom: 2rem;">
         <h2 style="font-weight: bold; font-size: 1.5rem;">
-            Api / Utility
+            Utility / Schema Control
         </h2>
         <p>
             A utility for table schema control, like migrate table,
