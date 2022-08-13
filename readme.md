@@ -401,7 +401,7 @@ axios.get('.../api/remigrate/modul')
                     Get
                 </h3>
                 <code style="font-size: 1rem;">
-                    /<b><i>:type</i></b>
+                    /<b><i>:type</i></b>?page=<b><i>page | 1</i></b>
                 </code>
                 <p>
                     The <b>GET</b> method will paginate automatically
