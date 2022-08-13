@@ -150,7 +150,7 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
                     in same time.
                 </p>
             </li>
-            <li id="remigrate" style="margin-bottom: 2rem;">
+            <li id="migrate" style="margin-bottom: 2rem;">
                 <h3 style="font-size: 1.25rem;">
                     Migrate
                 </h3>
@@ -161,7 +161,7 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
                     Utility to migrate table if exists.
                 </p>
             </li>
-            <li id="remigrate" style="margin-bottom: 2rem;">
+            <li id="drop" style="margin-bottom: 2rem;">
                 <h3 style="font-size: 1.25rem;">
                     Drop
                 </h3>
@@ -172,7 +172,7 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
                     Utility to drop table if exists.
                 </p>
             </li>
-            <li id="remigrate" style="margin-bottom: 2rem;">
+            <li id="truncate" style="margin-bottom: 2rem;">
                 <h3 style="font-size: 1.25rem;">
                     Truncate
                 </h3>
@@ -185,7 +185,7 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
                     <i>foreign key</i> related to other tables.
                 </p>
             </li>
-            <li id="remigrate" style="margin-bottom: 2rem;">
+            <li id="seed" style="margin-bottom: 2rem;">
                 <h3 style="font-size: 1.25rem;">
                     Seed
                 </h3>
