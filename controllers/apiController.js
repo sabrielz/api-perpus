@@ -75,10 +75,10 @@ exports.count = (req, res) => {
 	const { Model, knex } = require('../models/'+req.params.table);
 	let table = Model.tableName;
 
-	knex(table).count('id')
+	knex(table).count('id as count')
 	.then(data => res.status(200).send({
-		message: page + ' data successfully counted!',
-		data: data
+		message: 'Table data successfully counted!',
+		data: data[0].count
 	})).catch(err => res.status(500).send({
 		message: 'Some error occured when counting data!',
 		err: err
