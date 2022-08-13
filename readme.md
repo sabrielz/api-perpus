@@ -454,8 +454,7 @@ axios.get('.../api/remigrate/modul')
                     /<b><i>:type</i></b>/count
                 </code>
                 <p>
-                    This point using <b>GET</b> method,
-                    and <code>COUNT()</code> on Query.
+                    This point using <b>GET</b> method.
                     The return value will number of rows
                     <code>:type</code> in modul.
                 </p>
