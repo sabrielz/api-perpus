@@ -6,7 +6,7 @@
     <li><a href="#response">Response Value</a></li>
     <li><a href="#middleware">Middleware</a></li>
     <li><a href="#basic">Basic Usage</a></li>
-    <li><a href="#api">Api / Utility</a>
+    <li><a href="#api">Utility / Schema Control</a>
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li><a href="#remigrate">Remigrate</a></li>
             <li><a href="#migrate">Migrate</a></li>
