@@ -1,6 +1,6 @@
-# Dokumentasi API Perpus
+# Documentation API Perpus
 
-<h2>Daftar Isi</h2>
+## Daftar Isi
 <ol style="margin-left: -1rem">
     <li><a href="#dependency">Dependencies</a></li>
     <li><a href="#response">Response Value</a></li>
@@ -10,7 +10,7 @@
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li><a href="#login">Login</a></li>
             <li><a href="#register">Register</a></li>
-            <li><a href="#check">Cek Token</a></li>
+            <li><a href="#check">Check Token</a></li>
         </ol>
     </li>
     <li><a href="#module">Module</a>
