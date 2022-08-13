@@ -401,11 +401,13 @@ axios.get('.../api/remigrate/modul')
                     Get
                 </h3>
                 <code style="font-size: 1rem;">
-                    /<b><i>:type</i></b>?page=<b><i>page | 1</i></b>
+                    /<b><i>:type</i></b>?page=<b><i>page</i></b>
                 </code>
                 <p>
                     The <b>GET</b> method will paginate automatically
-                    with 8 items. It paginate from sql query with
+                    with 8 items. Page number defined in url parameter
+                    like <code>?page=4</code>, default is <code>1</code>
+                    It paginate from sql query with
                     <code>OFFSET</code> and <code>LIMIT</code>.
                     You can change paginate limit in <code>
                     controllers/modulController</code>.
