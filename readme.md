@@ -197,6 +197,7 @@ CREATE TABLE `moduls` (
     `slug` varchar(255) DEFAULT NULL,
     `desc` varchar(255) DEFAULT NULL,
     `thumbnail` varchar(255) DEFAULT NULL,
+    `file` varchar(255) DEFAULT NULL,
     `type` varchar(255) DEFAULT NULL,
     `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
     `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -428,7 +429,7 @@ axios.get('.../api/remigrate/modul')
                 <p>
                     The <b>GET</b> method will paginate automatically
                     with 8 items. Page number defined in url parameter
-                    like <code>?page=4</code>, default is <code>1</code>
+                    like <code>?page=4</code>, default is <code>0</code>
                     It paginate from sql query with
                     <code>OFFSET</code> and <code>LIMIT</code>.
                     You can change paginate limit in <code>
@@ -462,26 +463,6 @@ axios.get('.../api/remigrate/modul')
     message: <b><i>string</i></b>,
     ?err: <b><i>object</i></b>, // knex throw error
     ?data: <b><i>object</i></b> // contain inserted data
-}
-</pre>
-            </li>
-            <li id="modulePut">
-                <h3 style="font-size: 1.25rem;">
-                    Put
-                </h3>
-                <code style="font-size: 1rem;">
-                    /<b><i>:type</i></b>/<b><i>:id</i></b>
-                </code>
-                <p>
-                    The <b>PUT</b> method require url parameter that
-                    contain id to change, and require data
-                    parameter that contain data to change.
-                </p>
-<pre>
-{
-    message: <b><i>string</i></b>,
-    ?err: <b><i>object</i></b>, // knex throw error
-    ?data: <b><i>object</i></b> // contain changed data
 }
 </pre>
             </li>
