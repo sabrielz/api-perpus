@@ -34,9 +34,10 @@
     <li><a href="#module">Module</a>
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li><a href="#moduleGet">Get</a></li>
-            <li><a href="#modulePost">Post</a></li>
-            <li><a href="#modulePut">Put</a></li>
-            <li><a href="#moduleDelete">Delete</a></li>
+            <li><a href="#moduleCount">Count</a></li>
+            <li><a href="#moduleStore">Store</a></li>
+            <li><a href="#moduleUpdate">Update</a></li>
+            <li><a href="#moduleDestroy">Destroy</a></li>
         </ol>
     </li>
 </ol>
@@ -217,7 +218,7 @@ CREATE TABLE `moduls` (
             drop table, truncate table, and up to migrate and drop
             table in same time. This entry point does not require
             <b>json web token</b> as middleware to process. All of
-            this entry point using <b>GET</b> method. <code>
+            this entry point using <b>GET</b> Method. <code>
             remigrate, migrate, drop, truncate</code> point will
             contain this value.
         </p>
@@ -421,13 +422,14 @@ axios.get('.../api/remigrate/modul')
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li id="moduleGet">
                 <h3 style="font-size: 1.25rem;">
-                    Get
+                    All / Paginate
                 </h3>
                 <code style="font-size: 1rem;">
                     /<b><i>:type</i></b>?page=<b><i>page</i></b>
                 </code>
                 <p>
-                    The <b>GET</b> method will paginate automatically
+                    This point using HTTP <b>GET</b> Method, and will
+                    paginate automatically 
                     with 8 items. Page number defined in url parameter
                     like <code>?page=4</code>, default is <code>0</code>
                     It paginate from sql query with
@@ -454,7 +456,7 @@ axios.get('.../api/remigrate/modul')
                     /<b><i>:type</i></b>/count
                 </code>
                 <p>
-                    This point using <b>GET</b> method.
+                    This point using HTTP <b>GET</b> Method.
                     The return value will number of rows
                     <code>:type</code> in modul.
                 </p>
@@ -466,15 +468,16 @@ axios.get('.../api/remigrate/modul')
 }
 </pre>
             </li>
-            <li id="modulePost">
+            <li id="moduleStore">
                 <h3 style="font-size: 1.25rem;">
-                    Post
+                    Store
                 </h3>
                 <code style="font-size: 1rem;">
                     /<b><i>:type</i></b>
                 </code>
                 <p>
-                    The <b>POST</b> method require parameter that
+                    This method using HTTP <b>POST</b> Method,
+                    and require parameter that
                     contain data to insert, otherwise will return
                     error.
                 </p>
@@ -486,17 +489,18 @@ axios.get('.../api/remigrate/modul')
 }
 </pre>
             </li>
-            <li id="modulePut">
+            <li id="moduleUpdate">
                 <h3 style="font-size: 1.25rem;">
-                    Put
+                    Update
                 </h3>
                 <code style="font-size: 1rem;">
                     /<b><i>:type</i></b>/<b><i>:id</i></b>
                 </code>
                 <p>
-                    The <b>PUT</b> method require url parameter that
+                    This point using HTTP <b>PUT</b> Method,
+                    and require url parameter that
                     contain id to change, and require data
-                    parameter that contain data to change.
+                    parameter that contain data to update.
                 </p>
 <pre>
 {
@@ -506,15 +510,16 @@ axios.get('.../api/remigrate/modul')
 }
 </pre>
             </li>
-            <li id="moduleDelete">
+            <li id="moduleDestroy">
                 <h3 style="font-size: 1.25rem;">
-                    Delete
+                    Destroy
                 </h3>
                 <code style="font-size: 1rem;">
                     /<b><i>:type</i></b>/<b><i>:id</i></b>
                 </code>
                 <p>
-                    The <b>DELETE</b> method only require url parameter that
+                    This point using HTTP <b>DELETE</b> Method,
+                    and only require url parameter that
                     contain id to delete.
                 </p>
 <pre>
