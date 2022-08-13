@@ -6,7 +6,7 @@ module.exports = app => {
 
 	// app.use('/video', Auth.verify);
 
-	app.get('/video', Controller.paginate);
+	app.get('/video?:page', Controller.paginate);
 
 	app.post('/video', Controller.store);
 

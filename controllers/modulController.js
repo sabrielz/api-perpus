@@ -7,12 +7,13 @@ const mv = require('mv');
 module.exports = (type, limit = 8) => new class ModulController {
 
 	paginate(req, res) {
-		let page = req.params.page || 1;
+		let page = req.query.page || 1;
+		let offset = page == 0 ? 0 : page*limit;
 	
 		knex(Model.tableName).where({ type: type })
-		.offset(limit*page).limit(limit)
+		.limit(limit).offset(offset)
 		.then(data => res.status(200).send({
-			message: page + ' data successfully selected!',
+			message: limit + ' data successfully selected!',
 			data: data
 		})).catch(err => res.status(500).send({
 			message: 'Some error occured when selecting data!',
