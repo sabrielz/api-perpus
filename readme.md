@@ -394,6 +394,8 @@ axios.get('.../api/remigrate/modul')
             The module rest has 2 type, <b>ebook</b> and
             <b>video</b>. It detected automatically in first
             url path, <code>/ebook</code> and <code>/video</code>.
+            Both <code>ebook</code> and <code>video</code> leads
+            to <b>Modul</b> class model.
         </p>
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li id="moduleGet">
