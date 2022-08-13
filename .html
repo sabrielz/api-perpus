@@ -7,11 +7,10 @@
 	<title>Document</title>
 </head>
 <body>
-	<input type="file" name="ebook" id="ebook">
-	<input type="text" name="title" id="title" value="debug">
-	<button type="button">Send</button>
-	<script>
-		
-	</script>
+	<form action="http://localhost:4000/ebook" method="post" enctype="multipart/form-data">
+		<input type="file" name="ebook" id="ebook">
+		<input type="text" name="title" id="title" value="debug">
+		<button type="submit">Send</button>
+	</form>
 </body>
 </html>

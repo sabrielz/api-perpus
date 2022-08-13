@@ -16,6 +16,7 @@ class Modul extends Model {
 		table.string('slug').unique();
 		table.string('desc');
 		table.string('thumbnail');
+		table.string('file');
 		table.string('type');
 		table.timestamps(true, true, false);
 	}

@@ -1,4 +1,8 @@
 const { Model, knex } = require('../models/modul');
+const { IncomingForm } = require('formidable');
+const path = require('path');
+const crypto = require('crypto');
+// const fs = require('fs');
 
 module.exports = (type, limit = 8) => new class ModulController {
 
@@ -17,22 +21,34 @@ module.exports = (type, limit = 8) => new class ModulController {
 	}
 	
 	store(req, res) {
-		if (!req.body || Object.keys(req.body).length < 1) {
-			return res.status(404).send({
-				message: 'Require content to insert data!',
-				err: {}
+		// if (!req.body || Object.keys(req.body).length < 1) {
+		// 	return res.status(404).send({
+		// 		message: 'Require content to insert data!',
+		// 		err: {}
+		// 	});
+		// }
+
+		let form = new IncomingForm();
+		form.parse(req, (err, fields, files) => {
+			if (err) res.status(500).send({
+				message: 'Some error occured when parsing form!',
+				err: err
+			})
+
+			res.json({
+				fileds: fields,
+				files: files
 			});
-		}
-		
-		let body = req.body;
-		knex(Model.tableName).insert(body)
-		.then(data => res.status(200).send({
-			message: 'Data inserted successfully!',
-			data: data
-		})).catch(err => res.status(500).send({
-			message: 'Some error occured when inserting data!',
-			err: err
-		}))
+		})
+		// let body = req.body;
+		// knex(Model.tableName).insert(body)
+		// .then(data => res.status(200).send({
+		// 	message: 'Data inserted successfully!',
+		// 	data: data
+		// })).catch(err => res.status(500).send({
+		// 	message: 'Some error occured when inserting data!',
+		// 	err: err
+		// }))
 	}
 
 	update(req, res) {

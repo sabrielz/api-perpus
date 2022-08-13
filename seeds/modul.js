@@ -1,7 +1,7 @@
 let faker = require('random-words');
 let sluger = require('slugify');
 
-module.exports = knex => {
+module.exports = () => {
 	let seeds = [];
 	let type = ['ebook', 'video'];
 
@@ -13,6 +13,7 @@ module.exports = knex => {
 			slug: slug,
 			desc: faker({ exactly: 15, join: ' ' }),
 			thumbnail: 'http://localhost:4000/seed.jpg',
+			file: 'http://localhost:4000/seed.jpg',
 			type: type[Math.floor(Math.random() * 2)]
 		});
 	}

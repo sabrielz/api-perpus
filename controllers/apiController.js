@@ -62,11 +62,25 @@ exports.seed = (req, res) => {
 	let table = Model.tableName;
 
 	knex(table).insert(seed)
-	.then(data => res.status(200).send({
+	.then(seed => res.status(200).send({
 		message: 'Table '+table+' seeded successfully!',
 		data: JSON.parse(JSON.stringify(seed))
 	})).catch(err => res.status(500).send({
 		message: 'Some error occured when seeding table '+table+'!',
+		err: err
+	}))
+}
+
+exports.count = (req, res) => {
+	const { Model, knex } = require('../models/'+req.params.table);
+	let table = Model.tableName;
+
+	knex(table).count('id')
+	.then(data => res.status(200).send({
+		message: page + ' data successfully counted!',
+		data: data
+	})).catch(err => res.status(500).send({
+		message: 'Some error occured when counting data!',
 		err: err
 	}))
 }

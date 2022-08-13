@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'storage')));
 app.use(cors());
 
 const port = process.env.PORT || 4000;
