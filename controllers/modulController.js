@@ -7,7 +7,7 @@ const mv = require('mv');
 module.exports = (type, limit = 8) => new class ModulController {
 
 	paginate(req, res) {
-		let page = req.query.page || 1;
+		let page = req.query.page || 0;
 		let offset = page == 0 ? 0 : page*limit;
 	
 		knex(Model.tableName).where({ type: type })
