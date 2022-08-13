@@ -10,13 +10,24 @@ module.exports = (type, limit = 8) => new class ModulController {
 		let page = req.query.page || 0;
 		let offset = page == 0 ? 0 : page*limit;
 	
-		knex(Model.tableName).where({ type: type })
+		knex(Model.tableName).where({ type: type }).orderBy('id', 'DESC')
 		.limit(limit).offset(offset)
 		.then(data => res.status(200).send({
 			message: limit + ' data successfully selected!',
 			data: data
 		})).catch(err => res.status(500).send({
 			message: 'Some error occured when selecting data!',
+			err: err
+		}))
+	}
+
+	count(req, res) {
+		knex(Model.tableName).where({ type: type }).count('id as count')
+		.then(data => res.status(200).send({
+			message: 'Table data successfully counted!',
+			data: data[0].count
+		})).catch(err => res.status(500).send({
+			message: 'Some error occured when counting data!',
 			err: err
 		}))
 	}

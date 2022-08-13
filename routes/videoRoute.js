@@ -8,6 +8,8 @@ module.exports = app => {
 
 	app.get('/video?:page', Controller.paginate);
 
+	app.get('/video/count', Controller.count);
+
 	app.post('/video', Controller.store);
 
 	app.put('/video/:id', Controller.update);

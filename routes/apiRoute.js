@@ -12,6 +12,4 @@ module.exports = app => {
 
 	app.get('/api/seed/:table', Controller.seed);
 
-	app.get('/api/count/:table', Controller.count);
-
 }

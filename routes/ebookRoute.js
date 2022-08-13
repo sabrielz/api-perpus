@@ -8,6 +8,8 @@ module.exports = app => {
 
 	app.get('/ebook?:page', Controller.paginate);
 
+	app.get('/ebook/count', Controller.count);
+
 	app.post('/ebook', Controller.store);
 
 	app.put('/ebook/:id', Controller.update);
