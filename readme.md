@@ -109,10 +109,33 @@
             response from ajax.
         </p>
 <pre>
-axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
+axios.get(<b><i>url</i></b>, <b><i>?data</i></b>, <b><i>?header</i></b>)
 .then(<b><i>res</i></b> => {
-    if (<b><i>res.err</i></b>) alert('Request failed!')<br>
-    // Code to run if request successfully
+    if (<b><i>res.data.err</i></b>) alert('Request failed!')<br>
+    // Code to run if request succees
+})
+axios.post(<b><i>url</i></b>, <b><i>?data</i></b>, <b><i>?header</i></b>)
+.then(<b><i>res</i></b> => {
+    if (<b><i>res.data.err</i></b>) alert('Request failed!')<br>
+    // Code to run if request succees
+})
+</pre>
+        <p>
+            Example if request need <b>json web token</b> as middleware.
+        </p>
+<pre>
+let header = {
+    authorization: <b><i>json web token</i></b>
+}
+axios.post('../modul', {
+    title: <b><i>string</i></b>,
+    ?slug: <b><i>string</i></b>, // auto generate if null
+    desc: <b><i>string</i></b>,
+    thumbnail: <b><i>file</i></b> | <b><i>image</i></b>
+}, { header: <b><i>header</i></b> })
+.then(res => {
+    if (<b><i>res.data.err</i></b>) alert('Request failed!')<br>
+    // Code to run if request succees
 })
 </pre>
     </li>
@@ -219,8 +242,8 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
                 </h3>
 <pre>
 axios.get('.../api/remigrate/modul')
-.then(res => {
-    if (res.err) alert('Request failed')<br>
+.then(<b><i>res</i></b> => {
+    if (<b><i>res.data.err</i></b>) alert('Request failed')<br>
     // Code to run if success
 })
 </pre>
