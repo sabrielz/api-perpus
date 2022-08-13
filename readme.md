@@ -33,7 +33,7 @@
     </li>
     <li><a href="#module">Module</a>
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
-            <li><a href="#moduleGet">Get</a></li>
+            <li><a href="#modulePaginate">Paginate</a></li>
             <li><a href="#moduleCount">Count</a></li>
             <li><a href="#moduleStore">Store</a></li>
             <li><a href="#moduleUpdate">Update</a></li>
@@ -420,9 +420,9 @@ axios.get('.../api/remigrate/modul')
             to <b>Modul</b> class model.
         </p>
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
-            <li id="moduleGet">
+            <li id="modulePaginate">
                 <h3 style="font-size: 1.25rem;">
-                    All / Paginate
+                    Paginate
                 </h3>
                 <code style="font-size: 1rem;">
                     /<b><i>:type</i></b>?page=<b><i>page</i></b>
