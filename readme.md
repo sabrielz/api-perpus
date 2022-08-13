@@ -20,6 +20,7 @@
             <li><a href="#drop">Drop</a></li>
             <li><a href="#truncate">Truncate</a></li>
             <li><a href="#seed">Seed</a></li>
+            <li><a href="#count">Count</a></li>
             <li><a href="#example">Example</a></li>
         </ol>
     </li>
