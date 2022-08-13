@@ -12,6 +12,8 @@
             <li><a href="#migrate">Migrate</a></li>
             <li><a href="#drop">Drop</a></li>
             <li><a href="#truncate">Truncate</a></li>
+            <li><a href="#seed">Seed</a></li>
+            <li><a href="#example">Example</a></li>
         </ol>
     </li>
     <li><a href="#auth">Authentication</a>
@@ -123,8 +125,8 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
             drop table, truncate table, and up to migrate and drop
             table in same time. This entry point does not require
             <b>json web token</b> as middleware to process. All of
-            this entry point except <b>seed</b> point will contain
-            this value.
+            this entry point using <b>GET</b> method, and except
+            <b>seed</b> point will contain this value.
         </p>
 <pre>
 {
