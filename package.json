@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "push": "git add . && git commit -m \"auto commit\" && git push -u origin main"
+    "push": "git add . && git commit -m \"auto commit\" && git push -u origin main",
+    "push:readme": "git add readme.md && git commit -m \"edit readme.md\" && git push -u origin main"
   },
   "keywords": [],
   "author": "",

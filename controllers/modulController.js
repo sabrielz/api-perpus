@@ -9,7 +9,7 @@ module.exports = (type, limit = 8) => new class ModulController {
 		.offset(limit*page).limit(limit)
 		.then(data => res.status(200).send({
 			message: page + ' data successfully selected!',
-			data: data,
+			data: data
 		})).catch(err => res.status(500).send({
 			message: 'Some error occured when selecting data!',
 			err: err

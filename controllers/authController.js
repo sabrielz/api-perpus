@@ -11,7 +11,7 @@ exports.login = (req, res) => {
 
 	knex(Model.tableName).where({
 		email: body.email,
-		password: hash(body.password)
+		password: hash(body.password || '123456')
 	}).then(data => {
 		if (!data.length) {
 			return res.status(404).send({
@@ -22,21 +22,33 @@ exports.login = (req, res) => {
 		
 		data = data[0];
 		delete data.password;
-		jwt.sign({ data: data }, jwt.secretKey, {
-			expiresIn: jwt.expiresIn,
-			algorithm: jwt.algorithm
-		}, (err, token) => {
-			if (err) return res.status(500).send({
-				message: 'Some error occured when generating token!',
-				err: err
-			});
 
-			res.status(200).send({
-				message: 'User finded successfully!',
-				token: token,
-				data: data
+		let { Model } = require('../models/absen');
+		knex(Model.tableName).insert({
+			user_id: data.id,
+		}).then(absen => {
+
+			jwt.sign({ data: data }, jwt.secretKey, {
+				expiresIn: jwt.expiresIn,
+				algorithm: jwt.algorithm
+			}, (err, token) => {
+				if (err) return res.status(500).send({
+					message: 'Some error occured when generating token!',
+					err: err
+				});
+	
+				res.status(200).send({
+					message: 'User finded successfully!',
+					token: token,
+					data: data
+				})
 			})
-		})
+			
+		}).catch(err => res.status(500).send({
+			message: 'Some error occured when inserting absen!',
+			err: err
+		}));
+
 	}).catch(err => res.status(500).send({
 		message: 'Some error occured when finding user!',
 		err: err

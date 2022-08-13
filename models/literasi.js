@@ -12,9 +12,15 @@ class Absen extends Model {
 
 	static tableSchema(table) {
 		table.increments('id').primary();
+		// table.string('nama');
+		// table.string('email').unique();
+		// table.string('password');
+		table.timestamp('waktu').defaultTo(knex.fn.now());
 		table.timestamp('tanggal').defaultTo(knex.fn.now());
+		// table.timestamps(true, true, false);
 		table.integer('user_id').unsigned();
-		table.foreign('user_id').references('users.id');
+		table.foreign('user_id').references('users.id')
+		.onDelete('cascade').onUpdate('cascade')
 	}
 
 	// static get jsonSchema() {
