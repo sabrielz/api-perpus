@@ -6,6 +6,14 @@
     <li><a href="#response">Response Value</a></li>
     <li><a href="#middleware">Middleware</a></li>
     <li><a href="#basic">Basic Usage</a></li>
+    <li><a href="#api">Api / Utility</a>
+        <ol style="margin-left: -1rem; list-style-type: upper-alpha">
+            <li><a href="#remigrate">Remigrate</a></li>
+            <li><a href="#migrate">Migrate</a></li>
+            <li><a href="#drop">Drop</a></li>
+            <li><a href="#truncate">Truncate</a></li>
+        </ol>
+    </li>
     <li><a href="#auth">Authentication</a>
         <ol style="margin-left: -1rem; list-style-type: upper-alpha">
             <li><a href="#login">Login</a></li>
@@ -105,6 +113,119 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
     // Code to run if request successfully
 })
 </pre>
+    </li>
+    <li id="api" style="margin-bottom: 2rem;">
+        <h2 style="font-weight: bold; font-size: 1.5rem;">
+            Api / Utility
+        </h2>
+        <p>
+            A utility for table schema control, like migrate table,
+            drop table, truncate table, and up to migrate and drop
+            table in same time. This entry point does not require
+            <b>json web token</b> as middleware to process. All of
+            this entry point except <b>seed</b> point will contain
+            this value.
+        </p>
+<pre>
+{
+    message: <b><i>string</i></b>,
+    ?err: <b><i>object</i></b>, // throw knex error
+    ?data: <b><i>object</i></b>, // table query result
+}
+</pre>
+        <p>
+            Table schema structure file stored in <code>
+            models/:modelName</code>.
+        </p>
+        <ol style="margin-left: -1rem; list-style-type: upper-alpha">
+            <li id="remigrate" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    Remigrate
+                </h3>
+                <code>
+                    /api/remigrate/:model
+                </code>
+                <p>
+                    Utility to migrate and drop table if exists
+                    in same time.
+                </p>
+            </li>
+            <li id="remigrate" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    Migrate
+                </h3>
+                <code>
+                    /api/migrate/:model
+                </code>
+                <p>
+                    Utility to migrate table if exists.
+                </p>
+            </li>
+            <li id="remigrate" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    Drop
+                </h3>
+                <code>
+                    /api/drop/:model
+                </code>
+                <p>
+                    Utility to drop table if exists.
+                </p>
+            </li>
+            <li id="remigrate" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    Truncate
+                </h3>
+                <code>
+                    /api/remigrate/:model
+                </code>
+                <p>
+                    Utility to truncate table. This utility
+                    will return <i>error</i> if the model has
+                    <i>foreign key</i> related to other tables.
+                </p>
+            </li>
+            <li id="remigrate" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    Seed
+                </h3>
+                <code>
+                    /api/seed/:model
+                </code>
+                <p>
+                    Utility to generate random data and insert
+                    it to table for debugging reason. The seed
+                    schema file located in <code>seeds/:modelName
+                    </code>. Different from the others, this entry
+                    point will return data that been inserted to
+                    table.
+                </p>
+<pre>
+{
+    message: <b><i>string</i></b>,
+    ?err: <b><i>object</i></b>, // knex throw error
+    ?data: [
+        ...
+        <b><i>object</i></b> // inserted data
+    ]
+}
+</pre>
+            </li>
+            <li id="apiExample" style="margin-bottom: 2rem;">
+                <h3 style="font-size: 1.25rem;">
+                    Example
+                </h3>
+<pre>
+axios.get('.../api/remigrate/modul')
+.then(res => {
+    // Check if error
+    if (res.err) alert('Request failed')
+    // Code to run if success
+    else alert('Request successfull')
+})
+</pre>
+            </li>
+        </ol>
     </li>
     <li id="auth" style="margin-bottom: 2rem;">
         <h2 style="font-weight: bold; font-size: 1.5rem;">
