@@ -1,6 +1,6 @@
 # Dokumentasi API Perpus
 
-## Daftar Isi
+<h2>Daftar Isi</h2>
 <ol style="margin-left: -1rem">
     <li><a href="#dependency">Dependencies</a></li>
     <li><a href="#response">Response Value</a></li>
