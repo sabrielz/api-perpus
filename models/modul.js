@@ -6,6 +6,10 @@ class Modul extends Model {
 		return 'moduls';
 	}
 
+	static get uploadDir() {
+		return '../storage/modul';
+	}
+
 	static get idColumn() {
 		return 'id';
 	}
