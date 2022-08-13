@@ -58,7 +58,7 @@ exports.remigrate = (req, res) => {
 
 exports.seed = (req, res) => {
 	const { Model, knex } = require('../models/'+req.params.table);
-	const seed = require('../seeds/'+req.params.table);
+	const seed = require('../seeds/'+req.params.table)();
 	let table = Model.tableName;
 
 	knex(table).insert(seed)
