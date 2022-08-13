@@ -119,6 +119,9 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
                 <h3 style="font-size: 1.25rem;">
                     Login
                 </h3>
+                <code>
+                    /login
+                </code>
                 <p>
                     Response value will have json web 
                     <b>token</b> if authentication successfull.
@@ -136,6 +139,9 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
                 <h3 style="font-size: 1.25rem;">
                     Register
                 </h3>
+                <code>
+                    /register
+                </code>
                 <p>
                     Response value will return <b><i>object</i></b>
                     that inserted to table except <i>password</i>.
@@ -152,6 +158,9 @@ axios.post(<b><i>url</i></b>, <b><i>body</i></b>)
                 <h3 style="font-size: 1.25rem;">
                     Check
                 </h3>
+                <code>
+                    /check
+                </code>
                 <p>
                     Response value will contain <b>object</b>
                     from json web token.
