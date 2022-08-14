@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 exports.migrate = (req, res) => {
 	const { Model, knex } = require('../models/'+req.params.table);
 	let table = Model.tableName;

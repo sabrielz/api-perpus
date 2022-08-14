@@ -2,14 +2,11 @@ module.exports = app => {
 
 	let Controller = require('../controllers/absenController');
 
-	// app.get('')
+	// let Auth = require('../controllers/authController');
 
-	// app.get('/api/migrate/:table', Controller.migrate);
+	// app.use('/ebook', Auth.verify);
 
-	// app.get('/api/drop/:table', Controller.drop);
+	app.get('/absen', Controller.all);
 
-	// app.get('/api/remigrate/:table', Controller.remigrate);
-
-	// app.get('/api/truncate/:table', Controller.truncate);
-
+	app.get('/absen/:id', Controller.findId);
 }
