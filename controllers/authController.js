@@ -1,6 +1,10 @@
 const { Model, knex } = require('../models/user');
 const jwt = require('../config/jwt');
 const hash = require('md5');
+const { IncomingForm } = require('formidable');
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
 
 exports.login = (req, res) => {
 	let body = req.body;
@@ -26,7 +30,7 @@ exports.login = (req, res) => {
 		let { Model } = require('../models/absen');
 		knex(Model.tableName).insert({
 			user_id: data.id,
-		}).then(absen => {
+		}).then(() => {
 
 			jwt.sign({ data: data }, jwt.secretKey, {
 				expiresIn: jwt.expiresIn,
@@ -56,35 +60,51 @@ exports.login = (req, res) => {
 }
 
 exports.register = (req, res) => {
-	if (!req.body || Object.keys(req.body).length < 1) {
-		return res.status(400).send({
-			message: 'Required data to sign up!',
+	let form = new IncomingForm({
+		multiples: true,
+	});
+
+	form.parse(req, (err, fields, files) => {
+		if (!fields) return res.status(400).send({
+			message: 'Require data to sign up!',
 			err: {}
 		});
-	}
 
-	let body = req.body, insert = {
-		nama: body.nama,
-		password: hash(body.password || '123456'),
-		email: body.email,
-		ttl: body.ttl,
-		sekolah: body.sekolah,
-		alasan: body.alasan,
-		hp: body.hp,
-	}
-
-	knex(Model.tableName).insert(insert)
-	.then(data => {
-		insert.id = data[0];
-		delete insert.password;
-		return res.status(200).send({
-			message: 'User added successfully!',
-			data: insert
+		if (err) return res.status(500).send({
+			message: 'Some error occured when parsing form!',
+			err: err
 		})
-	}).catch(err => res.status(500).send({
-		message: 'Some error occured when inserting data!',
-		err: err
-	}));
+
+		let dotParse = files.avatar.originalFilename.split('.');
+		let oldpath = files.avatar.filepath;
+		let randpath = crypto.randomBytes(32).toString('hex');
+		let newname = randpath+'.'+dotParse[dotParse.length-1];
+		let newpath = path.join(__dirname, '../storage/avatar', newname);
+
+		fs.rename(oldpath, newpath, err => {
+			if (err) return res.status(500).send({
+				message: 'Some error occured when uploading file!',
+				err: err
+			})
+		})
+
+		// fields.nama = crypto.randomBytes(8).toString('hex');
+		// fields.email = fields.name + '@gmail.com';
+		fields.avatar = 'avatar/'+newname;
+		fields.password = hash(fields.password || '123456');
+		knex(Model.tableName).insert(fields)
+		.then(data => {
+			fields.id = data[0];
+			delete fields.password;
+			return res.status(200).send({
+				message: 'User added successfully!',
+				data: fields
+			})
+		}).catch(err => res.status(500).send({
+			message: 'Some error occured when inserting data!',
+			err: err
+		}));
+	})
 }
 
 exports.verify = (req, res, next) => {

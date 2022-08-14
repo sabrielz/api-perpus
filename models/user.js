@@ -7,6 +7,10 @@ class User extends Model {
 		return 'users';
 	}
 
+	static get uploadDir() {
+		return '../storage/avatar';
+	}
+
 	static get idColumn() {
 		return 'id';
 	}
@@ -19,6 +23,7 @@ class User extends Model {
 		table.string('ttl');
 		table.string('sekolah');
 		table.text('alasan');
+		table.string('avatar');
 		table.string('hp');
 	}
 
@@ -34,23 +39,6 @@ class User extends Model {
 			}
 		}
 	}
-
-	// static get jsonSchema() {
-	// 	return {
-	// 		type: 'object',
-	// 		required: ['key'],
-	// 		properties: {
-	// 			// id: { type: 'integer' },
-	// 			nama: { type: 'string' },
-	// 			email: { type: 'string' },
-	// 			password: { type: 'string' },
-	// 			ttl: { type: 'string' },
-	// 			sekolah: { type: 'string' },
-	// 			alasan: { type: 'string' },
-	// 			hp: { type: 'string' },
-	// 		}
-	// 	};
-	// }
 
 	// static get relationMappings() {
 	// 	// Importing models here is one way to avoid require loops.

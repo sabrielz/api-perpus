@@ -54,7 +54,7 @@ module.exports = (type, limit = 8) => new class ModulController {
 			let oldpath = files.file.filepath;
 			let randpath = crypto.randomBytes(32).toString('hex');
 			let newname = randpath+'.'+dotParse[dotParse.length-1];
-			let newpath = path.join(__dirname, Model.uploadDir, newname);
+			let newpath = path.join(__dirname, '../storage/modul', newname);
 
 			mv(oldpath, newpath, err => {
 				if (err) return res.status(500).send({
@@ -63,7 +63,7 @@ module.exports = (type, limit = 8) => new class ModulController {
 				})
 			})
 
-			fields.file = '/modul/'+newname;
+			fields.file = 'modul/'+newname;
 
 			knex(Model.tableName).insert(fields)
 			.then(data => res.status(200).send({
