@@ -5,6 +5,8 @@ let hash = require('md5');
 module.exports = () => {
 
 	let count = 50;
+	let no = () => Math.floor(Math.random() * 2);
+	// fields.avatar = 'avatar/default'+no()+'.png';
 
 	let seeds = [
 		{
@@ -13,7 +15,8 @@ module.exports = () => {
 			password: hash('123456'),
 			ttl: "Pekalongan",
 			sekolah: "SMKMUHBLIGO",
-			alasan: "Debugging"
+			alasan: "Debugging",
+			avatar: 'avatar/default'+no()+'.png'
 		}
 	];
 
@@ -26,7 +29,8 @@ module.exports = () => {
 			password: hash('123456'),
 			ttl: "Pekalongan",
 			sekolah: "SMKMUHBLIGO",
-			alasan: "Debugging"
+			alasan: "Debugging",
+			avatar: 'avatar/default'+no()+'.png'
 		});
 	}
 

@@ -16,7 +16,8 @@ exports.login = (req, res) => {
 	knex(Model.tableName).where({
 		email: body.email,
 		password: hash(body.password || '123456')
-	}).then(data => {
+	}).join('absens', { 'users.id': 'absens.id' })
+	.then(data => {
 		if (!data.length) {
 			return res.status(404).send({
 				message: 'User not found!',
@@ -75,22 +76,28 @@ exports.register = (req, res) => {
 			err: err
 		})
 
-		let dotParse = files.avatar.originalFilename.split('.');
-		let oldpath = files.avatar.filepath;
-		let randpath = crypto.randomBytes(32).toString('hex');
-		let newname = randpath+'.'+dotParse[dotParse.length-1];
-		let newpath = path.join(__dirname, '../storage/avatar', newname);
-
-		fs.rename(oldpath, newpath, err => {
-			if (err) return res.status(500).send({
-				message: 'Some error occured when uploading file!',
-				err: err
+		if (files.avatar) {
+			let dotParse = files.avatar.originalFilename.split('.');
+			let oldpath = files.avatar.filepath;
+			let randpath = crypto.randomBytes(32).toString('hex');
+			let newname = randpath+'.'+dotParse[dotParse.length-1];
+			let newpath = path.join(__dirname, '../storage/avatar', newname);
+	
+			fs.rename(oldpath, newpath, err => {
+				if (err) return res.status(500).send({
+					message: 'Some error occured when uploading file!',
+					err: err
+				})
 			})
-		})
+	
+			// fields.nama = crypto.randomBytes(8).toString('hex');
+			// fields.email = fields.name + '@gmail.com';
+			fields.avatar = 'avatar/'+newname;
+		} else {
+			let no = Math.floor(Math.random() * 2);
+			fields.avatar = 'avatar/default'+no+'.png';
+		}
 
-		// fields.nama = crypto.randomBytes(8).toString('hex');
-		// fields.email = fields.name + '@gmail.com';
-		fields.avatar = 'avatar/'+newname;
 		fields.password = hash(fields.password || '123456');
 		knex(Model.tableName).insert(fields)
 		.then(data => {
@@ -108,7 +115,7 @@ exports.register = (req, res) => {
 }
 
 exports.verify = (req, res, next) => {
-	let token = req.body.token || req.query.token || req.headers.authorization || req.headers.token;
+	let token = req.body.token || req.query.token || req.headers.authorization || req.headers.Authorization || req.headers.token;
 	if (!token) return res.status(403).send({
 		message: 'Required token to continue!',
 		err: {}

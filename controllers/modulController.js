@@ -21,6 +21,26 @@ module.exports = (type, limit = 8) => new class ModulController {
 		}))
 	}
 
+	read(req, res) {
+		let id = req.params.id
+
+		knex(Model.tableName).where({ type: type, id: id })
+		.then(data => {
+			if (!data.length) return res.status(200).send({
+				message: 'No '+type+' selected with id '+id+'!',
+				data: {}
+			});
+
+			return res.status(200).send({
+				message: 'Table data successfully selected!',
+				data: data[0],
+			});
+		}).catch(err => res.status(500).send({
+			message: 'Some error occured when selecting data!',
+			err: err
+		}))
+	}
+
 	count(req, res) {
 		knex(Model.tableName).where({ type: type }).count('id as count')
 		.then(data => res.status(200).send({

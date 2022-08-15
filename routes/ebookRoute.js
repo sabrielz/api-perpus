@@ -6,9 +6,11 @@ module.exports = app => {
 
 	// app.use('/ebook', Auth.verify);
 
-	app.get('/ebook?:page', Controller.paginate);
+	app.get('/ebook?:page?', Controller.paginate);
 
 	app.get('/ebook/count', Controller.count);
+
+	app.get('/ebook/:id', Controller.read);
 
 	app.post('/ebook', Controller.store);
 

@@ -27,18 +27,18 @@ class User extends Model {
 		table.string('hp');
 	}
 
-	static get relationMappings() {
-		return {
-			absen: {
-				relation: Model.HasManyRelation,
-				modelClass: require('./absen'),
-				join: {
-					from: 'users.id',
-					to: 'absens.user_id'
-				}
-			}
-		}
-	}
+	// static get relationMappings() {
+	// 	return {
+	// 		absen: {
+	// 			relation: Model.HasManyRelation,
+	// 			modelClass: require('./absen'),
+	// 			join: {
+	// 				from: 'users.id',
+	// 				to: 'absens.user_id'
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	// static get relationMappings() {
 	// 	// Importing models here is one way to avoid require loops.

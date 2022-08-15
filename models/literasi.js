@@ -1,9 +1,9 @@
 const { Model, knex } = require('../config/objection');
 
-class Absen extends Model {
+class Literasi extends Model {
 
 	static get tableName() {
-		return 'absens';
+		return 'literasy';
 	}
 
 	static get idColumn() {
@@ -12,15 +12,11 @@ class Absen extends Model {
 
 	static tableSchema(table) {
 		table.increments('id').primary();
-		// table.string('nama');
-		// table.string('email').unique();
-		// table.string('password');
-		table.timestamp('waktu').defaultTo(knex.fn.now());
 		table.timestamp('tanggal').defaultTo(knex.fn.now());
-		// table.timestamps(true, true, false);
 		table.integer('user_id').unsigned();
-		table.foreign('user_id').references('users.id')
-		.onDelete('cascade').onUpdate('cascade')
+		table.integer('modul_id').unsigned();
+		table.foreign('user_id').references('users.id');
+		table.foreign('modul_id').references('moduls.id');
 	}
 
 	// static get jsonSchema() {
@@ -43,12 +39,20 @@ class Absen extends Model {
 		return {
 			user: {
 				relation: Model.BelongsToOneRelation,
-				modelClass: require('./user'),
+				modelClass: 'user',
 				join: {
-					from: 'absens.user_id',
+					from: 'literasy.user_id',
 					to: 'users.id'
 				}
-			}
+			},
+			modul: {
+				relation: Model.BelongsToOneRelation,
+				modelClass: 'modul',
+				join: {
+					from: 'literasy.modul_id',
+					to: 'moduls.id'
+				}
+			},
 		}
 	}
 
@@ -170,6 +174,6 @@ class Absen extends Model {
 }
 
 module.exports = {
-	Model: Absen,
+	Model: Literasi,
 	knex: knex
 }
