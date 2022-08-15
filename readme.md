@@ -20,7 +20,6 @@
             <li><a href="#drop">Drop</a></li>
             <li><a href="#truncate">Truncate</a></li>
             <li><a href="#seed">Seed</a></li>
-            <li><a href="#count">Count</a></li>
             <li><a href="#example">Example</a></li>
         </ol>
     </li>
@@ -303,25 +302,6 @@ CREATE TABLE `moduls` (
         ...
         <b><i>object</i></b> // inserted data
     ]
-}
-</pre>
-            </li>
-            <li id="count" style="margin-bottom: 2rem;">
-                <h3 style="font-size: 1.25rem;">
-                    Count
-                </h3>
-                <code>
-                    /api/count/:model
-                </code>
-                <p>
-                    Utility to get number of rows based id in a table.
-                    This entry point will return number of rows.
-                </p>
-<pre>
-{
-    message: <b><i>string</i></b>,
-    ?err: <b><i>object</i></b>, // knex throw error
-    ?data: <b><i>number</i></b> // number of rows
 }
 </pre>
             </li>
