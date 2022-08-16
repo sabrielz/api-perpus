@@ -4,11 +4,13 @@ let hash = require('md5');
 
 module.exports = () => {
 
-	let count = 50;
+	let count = 200;
 	let no = () => Math.floor(Math.random() * 2);
 	// fields.avatar = 'avatar/default'+no()+'.png';
 
-	let seeds = [
+	let seeds = [];
+
+	seeds = [
 		{
 			nama: "Sabriel",
 			email: "sabriel@gmail.com",

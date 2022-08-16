@@ -13,11 +13,13 @@ exports.login = (req, res) => {
 		err: {}
 	});
 
-	knex(Model.tableName).where({
+	Model.query().where({
 		email: body.email,
-		password: hash(body.password || '123456')
-	}).join('absens', { 'users.id': 'absens.id' })
-	.then(data => {
+		password: hash(body.password)
+	}).withGraphFetched({
+		moduls: true,
+		absens: true
+	}).then(data => {
 		if (!data.length) {
 			return res.status(404).send({
 				message: 'User not found!',
@@ -29,7 +31,7 @@ exports.login = (req, res) => {
 		delete data.password;
 
 		let { Model } = require('../models/absen');
-		knex(Model.tableName).insert({
+		Model.query().insert({
 			user_id: data.id,
 		}).then(() => {
 
@@ -99,7 +101,7 @@ exports.register = (req, res) => {
 		}
 
 		fields.password = hash(fields.password || '123456');
-		knex(Model.tableName).insert(fields)
+		Model.query().insert(fields)
 		.then(data => {
 			fields.id = data[0];
 			delete fields.password;

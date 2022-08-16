@@ -1,14 +1,11 @@
 const { Model, knex } = require('../config/objection');
 const hash = require('md5');
+const path = require('path');
 
 class User extends Model {
 
 	static get tableName() {
 		return 'users';
-	}
-
-	static get uploadDir() {
-		return '../storage/avatar';
 	}
 
 	static get idColumn() {
@@ -25,6 +22,27 @@ class User extends Model {
 		table.text('alasan');
 		table.string('avatar');
 		table.string('hp');
+	}
+
+	static get relationMappings() {
+		return {
+			moduls: {
+				relation: Model.HasManyRelation,
+				modelClass: path.join(__dirname, 'modul'),
+				join: {
+					from: 'users.id',
+					to: 'moduls.user_id'
+				}
+			},
+			absens: {
+				relation: Model.HasManyRelation,
+				modelClass: path.join(__dirname, 'absen'),
+				join: {
+					from: 'users.id',
+					to: 'absens.user_id'
+				}
+			}
+		}
 	}
 
 	// static get relationMappings() {

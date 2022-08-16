@@ -6,11 +6,11 @@ module.exports = app => {
 
 	// app.use('/video', Auth.verify);
 
-	app.get('/video?:page', Controller.paginate);
-
-	app.get('/video/:id', Controller.read);
+	app.get('/video?:page?', Controller.paginate);
 
 	app.get('/video/count', Controller.count);
+
+	app.get('/video/:id', Controller.read);
 
 	app.post('/video', Controller.store);
 

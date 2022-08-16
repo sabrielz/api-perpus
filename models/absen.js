@@ -1,4 +1,5 @@
 const { Model, knex } = require('../config/objection');
+const path = require('path');
 
 class Absen extends Model {
 
@@ -14,6 +15,19 @@ class Absen extends Model {
 		table.increments('id').primary();
 		table.timestamp('tanggal').defaultTo(knex.fn.now());
 		table.integer('user_id').unsigned();
+	}
+
+	static get relationMappings() {
+		return {
+			user: {
+				relation: Model.BelongsToOneRelation,
+				modelClass: path.join(__dirname, 'user'),
+				join: {
+					from: 'absens.user_id',
+					to: 'users.id'
+				}
+			}
+		}
 	}
 
 	// static get jsonSchema() {

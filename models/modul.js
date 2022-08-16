@@ -1,13 +1,10 @@
 const { Model, knex } = require('../config/objection');
+const path = require('path');
 
 class Modul extends Model {
 
 	static get tableName() {
 		return 'moduls';
-	}
-
-	static get uploadDir() {
-		return '../storage/modul';
 	}
 
 	static get idColumn() {
@@ -22,7 +19,21 @@ class Modul extends Model {
 		table.string('thumbnail');
 		table.string('file');
 		table.string('type');
+		table.integer('user_id').references('users.id').unsigned();
 		table.timestamps(true, true, false);
+	}
+
+	static get relationMappings() {
+		return {
+			user: {
+				relation: Model.BelongsToOneRelation,
+				modelClass: path.join(__dirname, 'user'),
+				join: {
+					from: 'moduls.user_id',
+					to: 'users.id'
+				}
+			}
+		}
 	}
 
 	// static get jsonSchema() {

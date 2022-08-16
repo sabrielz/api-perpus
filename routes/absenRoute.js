@@ -8,5 +8,8 @@ module.exports = app => {
 
 	app.get('/absen', Controller.all);
 
-	app.get('/absen/:id', Controller.findId);
+	app.get('/absen/:id', Controller.get);
+	
+	app.get('/absen/user/:id', Controller.find);
+
 }

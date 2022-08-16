@@ -5,7 +5,7 @@ module.exports = () => {
 	let seeds = [];
 	let type = ['ebook', 'video'];
 
-	for (var i = 0; i < 50; i++) {
+	for (var i = 1; i < 100; i++) {
 		let title = faker({ exactly: 6, join: ' '});
 		let slug = sluger(title, '-');
 		seeds.push({
@@ -14,7 +14,8 @@ module.exports = () => {
 			desc: faker({ exactly: 15, join: ' ' }),
 			thumbnail: 'http://localhost:4000/seed.jpg',
 			file: 'http://localhost:4000/seed.jpg',
-			type: type[Math.floor(Math.random() * 2)]
+			type: type[Math.floor(Math.random() * 2)],
+			user_id: Math.floor(Math.random() * 100)
 		});
 	}
 
