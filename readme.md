@@ -1,7 +1,16 @@
 # **Documentation API Perpus**
 
+# Overview
+**Json Web Token** Authorization currently disabled for
+development reason. Enable this in all of **routes**
+directory except **Route.js** by uncomment line `app.use(Auth.verify...`.
+This development using **axios** and **Postman** for testing.
+For **multipart** form content-type, input catched by **formidable**,
+otherwise catched by **express** directly.
+
 # Schema Utility
 Utility to control schema. Like migrate, drop, truncate, etc.
+
 ### Entry Points
 | Method | URL |
 | ------ | --- |
@@ -12,10 +21,11 @@ Utility to control schema. Like migrate, drop, truncate, etc.
 | **GET** | `/api/remigrate/:table` |
 
 # Auth
+Require **json web token** except `/register`.
 Create new user, or authenticate user to access api
 with **json web token**.
-### Entry Points
 
+### Entry Points
 | Method | URL | Body Params |
 | ------ | --- | ------ |
 | **POST** | `/login` | `email, password` |
@@ -23,15 +33,16 @@ with **json web token**.
 | **POST** | `/check` | `check jwt token` |
 
 # User
+Require **json web token** to access.
 Control user profile, except create new user.
-### Entry Points
 
+### Entry Points
 | Method | URL | URL Params | Body Params |
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/user` | `?page&select` | |
-| **GET** | `/user/:id` | | |
+| **GET** | `/user/:id` | `id` | |
 | **GET** | `/user/count` | | |
-| **PUT** | `/user/:id` | | `all modul columns` |
+| **PUT** | `/user/:id` | `id` | `all modul columns` |
 | **DELETE** | `/user/:id` | `id` | |
 
 ### Table Schema
@@ -48,18 +59,18 @@ Control user profile, except create new user.
 | `hp` | varchar(255) DEFAULT NULL |
 
 # Modul
+Require **json web token** to access.
 Modul have **type** that contain type of modul.
 Change **:type** url with ***ebook*** or ***video*** only.
 
 ### Entry Points
-
 | Method | URL | URL Params | Body Params |
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/:type` | `?page&select` | |
-| **GET** | `/:type/:id` | | |
+| **GET** | `/:type/:id` | `id` | |
 | **GET** | `/:type/count` | | |
 | **POST** | `/:type` | | `all modul columns` |
-| **PUT** | `/:type/:id` | | `all modul columns` |
+| **PUT** | `/:type/:id` | `id` | `all modul columns` |
 | **DELETE** | `/:type/:id` | `id` | |
 
 ### Table Schema
@@ -75,3 +86,47 @@ Change **:type** url with ***ebook*** or ***video*** only.
 | `user_id` | int(10) unsigned DEFAULT NULL |
 | `created_at` | timestamp NOT NULL DEFAULT current_timestamp() |
 | `updated_at` | timestamp NOT NULL DEFAULT current_timestamp() |
+
+# Absen
+Not require **json web token** to access. Embeded automatically
+when user login or accessing `/login` successfully.
+
+### Entry Points
+| Method | URL | URL Params | Body Params |
+| ------ | --- | ---------- | ----------- |
+| **GET** | `/absen` | `?page&select` | |
+| **GET** | `/absen/:id` | `id` | |
+| **GET** | `/absen/count` | | |
+| **POST** | `/absen` | | `all absen columns` |
+| **PUT** | `/absen/:id` | `id` | `all absen columns` |
+| **DELETE** | `/absen/:id` | `id` | |
+
+### Table Schema
+| Name | Options |
+| --- | --- |
+| `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
+| `tanggal` | timestamp NOT NULL DEFAULT current_timestamp() |
+| `user_id` | int(10) unsigned DEFAULT NULL |
+
+# Literasi
+Require **json web token** to access. The entry points
+same as absen.
+
+### Entry Points
+| Method | URL | URL Params | Body Params |
+| ------ | --- | ---------- | ----------- |
+| **GET** | `/literasi` | `?page&select` | |
+| **GET** | `/literasi/:id` | `id` | |
+| **GET** | `/literasi/count` | | |
+| **POST** | `/literasi` | | `all literasi columns` |
+| **PUT** | `/literasi/:id` | `id` | `all literasi columns` |
+| **DELETE** | `/literasi/:id` | `id` | |
+
+### Table Schema
+| Name | Options |
+| --- | --- |
+| `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
+| `file` | varchar(255) DEFAULT NULL |
+| `tanggal` | timestamp NOT NULL DEFAULT current_timestamp() |
+| `user_id` | int(10) unsigned DEFAULT NULL |
+| `modul_id` | int(10) unsigned DEFAULT NULL |
