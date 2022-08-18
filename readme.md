@@ -26,11 +26,26 @@ with **json web token**.
 Control user profile, except create new user.
 ### Entry Points
 
-| Method | URL | Body Params |
-| ------ | --- | ------ |
-| **POST** | `/login` | `email, password` |
-| **POST** | `/register` | `all user columns` |
-| **POST** | `/check` | `check jwt token` |
+| Method | URL | URL Params | Body Params |
+| ------ | --- | ---------- | ----------- |
+| **GET** | `/user` | `?page&select` | |
+| **GET** | `/user/:id` | | |
+| **GET** | `/user/count` | | |
+| **PUT** | `/user/:id` | | `all modul columns` |
+| **DELETE** | `/user/:id` | `id` | |
+
+### Table Schema
+| Name | Options |
+| ---- | ------- |
+| `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
+| `nama` | varchar(255) DEFAULT NULL |
+| `email` | varchar(255) DEFAULT NULL |
+| `password` | varchar(255) DEFAULT '123456' |
+| `ttl` | varchar(255) DEFAULT NULL |
+| `sekolah` | varchar(255) DEFAULT NULL |
+| `alasan` | text DEFAULT NULL |
+| `avatar` | varchar(255) DEFAULT NULL |
+| `hp` | varchar(255) DEFAULT NULL |
 
 # Modul
 Modul have **type** that contain type of modul.
@@ -40,19 +55,12 @@ Change **:type** url with ***ebook*** or ***video*** only.
 
 | Method | URL | URL Params | Body Params |
 | ------ | --- | ---------- | ----------- |
-| **GET** | `/:type` | `page, select` | |
-| **GET** | `/:type/:id` | `page, select` | |
-| **GET** | `/:type/count` | `page, select` | |
+| **GET** | `/:type` | `?page&select` | |
+| **GET** | `/:type/:id` | | |
+| **GET** | `/:type/count` | | |
 | **POST** | `/:type` | | `all modul columns` |
 | **PUT** | `/:type/:id` | | `all modul columns` |
 | **DELETE** | `/:type/:id` | `id` | |
-
-### URL Params (GET Methods)
-
-| Key | Default Value |
-| --- | ----- |
-| `page` | `1` |
-| `select` | `*` |
 
 ### Table Schema
 | Name | Options |
