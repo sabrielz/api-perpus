@@ -12,7 +12,7 @@ exports.all = (req, res) => {
 		return exports.paginate(req, res);
 	}
 
-	Model.query().select('*')
+	return Model.query().select('*')
 	.withGraphFetched(Model.relationGraph)
 	.then(data => {
 		if (!data.length) return res.status(404).send({
@@ -45,7 +45,7 @@ exports.paginate = (req, res) => {
 	let limit = cfg.pagination.limit || cfg.pagination;
 	let offset = page == 0 ? 0 : page*limit;
 	
-	Model.query().select('*')
+	return Model.query().select('*')
 	.offset(offset).limit(limit)
 	.then(data => {
 		return res.status(200).send({
@@ -63,7 +63,7 @@ exports.paginate = (req, res) => {
 exports.get = (req, res) => {
 	let id = req.params.id;
 
-	Model.query().where({ id: id })
+	return Model.query().where({ id: id })
 	.withGraphFetched(Model.relationGraph)
 	.then(data => {
 		if (!data.length) return res.status(404).send({
@@ -118,7 +118,7 @@ exports.update = (req, res) => {
 		}
 
 		fields.password = hash(fields.password || '123456');
-		Model.query().insert(fields)
+		return Model.query().insert(fields)
 		.then(data => {
 			fields.id = data[0];
 			delete fields.password;
@@ -136,7 +136,7 @@ exports.update = (req, res) => {
 exports.destroy = (req, res) => {
 	let id = req.params.id;
 
-	Model.query().deleteById(id)
+	return Model.query().deleteById(id)
 	.then(data => {
 		return res.status(200).send({
 			message: 'User deleted successfully!',

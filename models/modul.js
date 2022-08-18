@@ -36,6 +36,12 @@ class Modul extends Model {
 		}
 	}
 
+	static get relationGraph() {
+		return {
+			user: true
+		}
+	}
+
 	// static get jsonSchema() {
 	// 	return {
 	// 		type: 'object',

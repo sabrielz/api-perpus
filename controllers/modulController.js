@@ -19,6 +19,7 @@ module.exports = (type, limit = 8) => new class ModulController {
 		
 			return Model.query().where({ type: type })
 			.orderBy('id', 'DESC').limit(limit).offset(offset)
+			.withGraphFetched(Model.relationGraph)
 			.then(data => res.status(200).send({
 				message: limit+' '+ type +' successfully selected!',
 				data: data
@@ -28,9 +29,9 @@ module.exports = (type, limit = 8) => new class ModulController {
 			}))
 		}
 
-		Model.query().select(select).where({ type: type })
+		return Model.query().select(select).where({ type: type })
 		.orderBy('id', 'DESC')
-		.withGraphFetched(Model.fetchGraph)
+		.withGraphFetched(Model.relationGraph)
 		.then(data => res.status(200).send({
 			message: 'All '+type+' successfully selected!',
 			data: data
@@ -43,7 +44,7 @@ module.exports = (type, limit = 8) => new class ModulController {
 	get(req, res) {
 		let id = req.params.id
 
-		Model.query().where({ type: type, id: id })
+		return Model.query().where({ type: type, id: id })
 		.withGraphFetched({
 			user: true
 		}).then(data => {
@@ -63,7 +64,7 @@ module.exports = (type, limit = 8) => new class ModulController {
 	}
 
 	count(req, res) {
-		Model.query().where({ type: type }).count('id as count')
+		return Model.query().where({ type: type }).count('id as count')
 		.then(data => res.status(200).send({
 			message: 'Table data successfully counted!',
 			data: data[0].count
@@ -125,7 +126,7 @@ module.exports = (type, limit = 8) => new class ModulController {
 				fields.file = 'modul/'+newname;
 			}
 
-			Model.query().insert(fields)
+			return Model.query().insert(fields)
 			.then(data => res.status(200).send({
 				message: type[0].toUpperCase()+type.slice(1)+' inserted successfully!',
 				data: data[0]
@@ -195,7 +196,7 @@ module.exports = (type, limit = 8) => new class ModulController {
 				fields.file = 'modul/'+newname;
 			}
 
-			Model.query().where({ id:id, type:type }).update(fields)
+			return Model.query().where({ id:id, type:type }).update(fields)
 			.then(data => res.status(200).send({
 				message: 'Data updated successfully!',
 				data: data
@@ -209,12 +210,67 @@ module.exports = (type, limit = 8) => new class ModulController {
 	destroy(req, res) {
 		let id = req.params.id;
 
-		Model.query().where({id:id, type:type}).delete()
+		return Model.query().where({id:id, type:type}).delete()
 		.then(data => res.status(200).send({
 			message: 'Data deleted successfully!',
 			data: data
 		})).catch(err => res.status(500).send({
 			message: 'Some error occured when deleting data!',
+			err: err
+		}))
+	}
+
+	modul(req, res) {
+		let select = ['*'];
+		if (req.query.select) {
+			select = req.query.select.split(',');
+		}
+
+		if (req.query.search) {
+			let search = req.query.search;
+
+			if (req.query.page || req.query.paginate == '') {
+				let page = req.query.page || 0;
+				page = page > 0 ? page - 1 : 0;
+				let offset = page == 0 ? 0 : page*limit;
+
+				return Model.query().select(select)
+				.whereRaw(`\`title\` like '%${search}%'`)
+				.orWhereRaw(`\`desc\` like '%${search}%'`)
+				.orderBy('id', 'DESC')
+				.limit(limit).offset(offset)
+				.withGraphFetched(Model.relationGraph)
+				.then(data => res.status(200).send({
+					message: limit+' modul successfully selected!',
+					data: data
+				})).catch(err => res.status(500).send({
+					message: 'Some error occured when selecting modul!',
+					err: err
+				}))
+			}
+			
+			return Model.query().select(select)
+			.whereRaw(`\`title\` like '%${search}%'`)
+			.orWhereRaw(`\`desc\` like '%${search}%'`)
+			.orderBy('id', 'DESC')
+			.withGraphFetched(Model.relationGraph)
+			.then(data => res.status(200).send({
+				message: limit+' modul successfully selected!',
+				data: data
+			})).catch(err => res.status(500).send({
+				message: 'Some error occured when selecting modul!',
+				err: err
+			}))
+		}
+
+		return Model.query().select(select)
+		.orderBy('id', 'DESC')
+		.withGraphFetched(Model.relationGraph)
+		.then(data => res.status(200).send({
+			message: 'All modul successfully selected!',
+			data: data
+		})).catch(err => res.status(500).send({
+			message: 'Some error occured when selecting modul!',
 			err: err
 		}))
 	}

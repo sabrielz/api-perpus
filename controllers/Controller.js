@@ -7,7 +7,7 @@ exports.paginate = (Model, next) => {
 	let limit = cfg.pagination.limit || cfg.pagination;
 	let offset = page == 0 ? 0 : page*limit;
 	
-	Model.query().select('*')
+	return Model.query().select('*')
 	.offset(offset).limit(limit)
 	.then(data => next(null, data))
 	.catch(err => next(err, null))

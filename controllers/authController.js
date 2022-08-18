@@ -13,7 +13,7 @@ exports.login = (req, res) => {
 		err: {}
 	});
 
-	Model.query().where({
+	return Model.query().where({
 		email: body.email,
 		password: hash(body.password)
 	}).then(data => {
@@ -28,7 +28,7 @@ exports.login = (req, res) => {
 		delete data.password;
 
 		let { Model } = require('../models/absen');
-		Model.query().insert({
+		return Model.query().insert({
 			user_id: data.id,
 		}).then(() => {
 
@@ -98,7 +98,7 @@ exports.register = (req, res) => {
 		}
 
 		fields.password = hash(fields.password || '123456');
-		Model.query().insert(fields)
+		return Model.query().insert(fields)
 		.then(data => {
 			fields.id = data[0];
 			delete fields.password;

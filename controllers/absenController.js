@@ -1,7 +1,7 @@
 const { Model } = require('../models/absen');
 
 exports.all = (req, res) => {
-	Model.query().withGraphFetched({
+	return Model.query().withGraphFetched({
 		user: true
 	}).orderBy('id', 'DESC')
 	.then(data => {
@@ -23,7 +23,7 @@ exports.all = (req, res) => {
 exports.get = (req, res) => {
 	let id = req.params.id;
 
-	Model.query().where({ id: id })
+	return Model.query().where({ id: id })
 	.withGraphFetched({
 		user: true
 	})
@@ -46,7 +46,7 @@ exports.get = (req, res) => {
 exports.find = (req, res) => {
 	let id = req.params.id;
 
-	Model.query().where({ user_id: id })
+	return Model.query().where({ user_id: id })
 	.withGraphFetched({
 		user: true
 	}).orderBy('id', 'DESC')

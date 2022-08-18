@@ -3,12 +3,14 @@ module.exports = app => {
 	let types = ['ebook', 'video'];
 
 	let Auth = require('../controllers/authController');
+
+	let Controller = require('../controllers/modulController')();
 	
 	types.map(type => {
 
 		let base = '/'+type;
 		
-		let Controller = require('../controllers/modulController')(type);
+		Controller = require('../controllers/modulController')(type);
 		
 		// app.use('/ebook', Auth.verify);
 
@@ -25,5 +27,7 @@ module.exports = app => {
 		app.delete(base+'/:id', Controller.destroy);
 
 	})
+
+	app.get('/modul', Controller.modul);
 
 }
