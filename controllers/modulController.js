@@ -7,32 +7,32 @@ const fs = require('fs');
 module.exports = (type, limit = 8) => new class ModulController {
 
 	all(req, res) {
-		if (req.query.page) return this.paginate(req, res);
-
 		let select = ['*'];
 		if (req.query.select) {
 			select = req.query.select.split(',');
 		}
 
+		if (req.query.page || req.query.paginate == '') {
+			let page = req.query.page || 0;
+			page = page > 0 ? page - 1 : 0;
+			let offset = page == 0 ? 0 : page*limit;
+		
+			return Model.query().where({ type: type })
+			.orderBy('id', 'DESC').limit(limit).offset(offset)
+			.then(data => res.status(200).send({
+				message: limit+' '+ type +' successfully selected!',
+				data: data
+			})).catch(err => res.status(500).send({
+				message: 'Some error occured when selecting '+type+'!',
+				err: err
+			}))
+		}
+
 		Model.query().select(select).where({ type: type })
+		.orderBy('id', 'DESC')
 		.withGraphFetched(Model.fetchGraph)
 		.then(data => res.status(200).send({
 			message: 'All '+type+' successfully selected!',
-			data: data
-		})).catch(err => res.status(500).send({
-			message: 'Some error occured when selecting '+type+'!',
-			err: err
-		}))
-	}
-
-	paginate(req, res) {
-		let page = req.query.page - 1 || 0;
-		let offset = page == 0 ? 0 : page*limit;
-	
-		Model.query().where({ type: type }).orderBy('id', 'DESC')
-		.limit(limit).offset(offset)
-		.then(data => res.status(200).send({
-			message: limit+' '+ type +' successfully selected!',
 			data: data
 		})).catch(err => res.status(500).send({
 			message: 'Some error occured when selecting '+type+'!',

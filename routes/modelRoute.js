@@ -13,7 +13,7 @@ module.exports = app => {
 		// app.use('/ebook', Auth.verify);
 
 		app.get(base, Controller.all);
-	
+		
 		app.get(base+'/count', Controller.count);
 		
 		app.get(base+'/:id', Controller.get);
