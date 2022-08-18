@@ -4,11 +4,11 @@ module.exports = app => {
 
 	let Auth = require('../controllers/authController');
 
-	app.use('/user', Auth.verify);
+	// app.use('/user', Auth.verify);
 
 	app.get('/user', Controller.all);
 
-	app.get('/user/paginate', Controller.paginate);
+	app.get('/user/count', Controller.count);
 
 	app.get('/user/:id', Controller.get);
 

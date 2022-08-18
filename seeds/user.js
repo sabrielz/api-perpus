@@ -1,14 +1,12 @@
 let faker = require('random-words');
 let sluger = require('slugify');
 let hash = require('md5');
+let cfg = require('../config/config');
 
 module.exports = () => {
 
-	let count = 200;
+	let limit = cfg.seeding.user.limit, seeds = [];
 	let no = () => Math.floor(Math.random() * 2);
-	// fields.avatar = 'avatar/default'+no()+'.png';
-
-	let seeds = [];
 
 	seeds = [
 		{
@@ -22,7 +20,7 @@ module.exports = () => {
 		}
 	];
 
-	for (var i = 0; i < count; i++) {
+	for (var i = 0; i < limit; i++) {
 		let nama = faker({ min: 2, max: 3, join: ' '});
 		let email = sluger(nama, '') + '@email.com';
 		seeds.push({

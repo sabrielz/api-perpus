@@ -1,4 +1,5 @@
-const { Model } = require('../config/objection');
+const path = require('path');
+const { Model, knex } = require('../config/objection');
 
 class Literasi extends Model {
 
@@ -12,34 +13,17 @@ class Literasi extends Model {
 
 	static tableSchema(table) {
 		table.increments('id').primary();
+		table.string('file');
 		table.timestamp('tanggal').defaultTo(knex.fn.now());
-		table.integer('user_id').unsigned();
-		table.integer('modul_id').unsigned();
-		table.foreign('user_id').references('users.id');
-		table.foreign('modul_id').references('moduls.id');
+		table.integer('user_id').references('users.id').unsigned();
+		table.integer('modul_id').references('moduls.id').unsigned();
 	}
-
-	// static get jsonSchema() {
-	// 	return {
-	// 		type: 'object',
-	// 		required: ['key'],
-	// 		properties: {
-	// 			id: { type: 'integer' },
-	// 			nama: { type: ['string', 'null'] },
-	// 			hp: { type: ['string', 'null'] },
-	// 			email: { type: 'string' },
-	// 			password: { type: 'string' },
-	// 			// firstName: { type: 'string', minLength: 1, maxLength: 255 },
-	// 			// lastName: { type: 'string', minLength: 1, maxLength: 255 },
-	// 		}
-	// 	};
-	// }
 
 	static get relationMappings() {
 		return {
 			user: {
 				relation: Model.BelongsToOneRelation,
-				modelClass: 'user',
+				modelClass: path.join(__dirname, 'user'),
 				join: {
 					from: 'literasy.user_id',
 					to: 'users.id'
@@ -47,12 +31,19 @@ class Literasi extends Model {
 			},
 			modul: {
 				relation: Model.BelongsToOneRelation,
-				modelClass: 'modul',
+				modelClass: path.join(__dirname, 'modul'),
 				join: {
 					from: 'literasy.modul_id',
 					to: 'moduls.id'
 				}
 			},
+		}
+	}
+
+	static get relationGraph() {
+		return {
+			user: true,
+			modul: true
 		}
 	}
 
@@ -174,5 +165,6 @@ class Literasi extends Model {
 }
 
 module.exports = {
-	Model: Literasi
+	Model: Literasi,
+	knex: knex
 }

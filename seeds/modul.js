@@ -1,11 +1,13 @@
 let faker = require('random-words');
 let sluger = require('slugify');
+let cfg = require('../config/config');
 
 module.exports = () => {
 	let seeds = [];
 	let type = ['ebook', 'video'];
+	let limit = cfg.seeding.modul.limit;
 
-	for (var i = 1; i < 100; i++) {
+	for (var i = 1; i < limit; i++) {
 		let title = faker({ exactly: 6, join: ' '});
 		let slug = sluger(title, '-');
 		seeds.push({

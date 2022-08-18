@@ -28,6 +28,8 @@ module.exports = app => {
 
 	})
 
-	app.get('/modul', Controller.modul);
+	app.get('/modul', Controller.mall);
+	
+	app.get('/modul/count', Controller.mcount);
 
 }

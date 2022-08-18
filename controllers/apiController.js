@@ -1,8 +1,5 @@
-const fs = require('fs');
-const path = require('path');
-
 exports.migrate = (req, res) => {
-	const { Model } = require('../models/'+req.params.table);
+	const { Model, knex } = require('../models/'+req.params.table);
 	let table = Model.tableName;
 	knex.schema.createTableIfNotExists(table, table => Model.tableSchema(table))
 	.then(data => res.status(200).send({
@@ -15,7 +12,7 @@ exports.migrate = (req, res) => {
 }
 
 exports.truncate = (req, res) => {
-	const { Model } = require('../models/'+req.params.table);
+	const { Model, knex } = require('../models/'+req.params.table);
 	let table = Model.tableName;
 	knex.raw('TRUNCATE TABLE '+table)
 	.then(data => res.status(200).send({
@@ -28,7 +25,7 @@ exports.truncate = (req, res) => {
 }
 
 exports.drop = (req, res) => {
-	const { Model } = require('../models/'+req.params.table);
+	const { Model, knex } = require('../models/'+req.params.table);
 	let table = Model.tableName;
 	knex.schema.dropTableIfExists(table)
 	.then(data => res.status(200).send({
@@ -41,7 +38,7 @@ exports.drop = (req, res) => {
 }
 
 exports.remigrate = (req, res) => {
-	const { Model } = require('../models/'+req.params.table);
+	const { Model, knex } = require('../models/'+req.params.table);
 	let table = Model.tableName;
 	knex.schema.dropTableIfExists(table)
 	.catch(err => res.status(500).send({
@@ -60,7 +57,7 @@ exports.remigrate = (req, res) => {
 }
 
 exports.seed = (req, res) => {
-	const { Model } = require('../models/'+req.params.table);
+	const { Model, knex } = require('../models/'+req.params.table);
 	const seed = require('../seeds/'+req.params.table)();
 	let table = Model.tableName;
 

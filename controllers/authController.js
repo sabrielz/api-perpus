@@ -8,10 +8,12 @@ const crypto = require('crypto');
 
 exports.login = (req, res) => {
 	let body = req.body;
-	if (!req.body || Object.keys(req.body).length < 1) return res.status(400).send({
-		message: 'Required data to sign up!',
-		err: {}
-	});
+	if (!req.body || Object.keys(req.body).length < 1) {
+		return res.status(400).send({
+			message: 'Required data to sign up!',
+			err: {}
+		});
+	}
 
 	return Model.query().where({
 		email: body.email,
@@ -27,12 +29,15 @@ exports.login = (req, res) => {
 		data = data[0];
 		delete data.password;
 
-		let { Model } = require('../models/absen');
-		return Model.query().insert({
-			user_id: data.id,
-		}).then(() => {
+		return require('../controllers/absenController')
+		.login(data.id)
+		.then(absen => {
+			if (absen.err) return res.status(500).send({
+				message: 'Some error occured when inserting absen!',
+				err: absen.err
+			})
 
-			jwt.sign({ data: data }, jwt.secretKey, {
+			return jwt.sign({ data: data }, jwt.secretKey, {
 				expiresIn: jwt.expiresIn,
 				algorithm: jwt.algorithm
 			}, (err, token) => {
@@ -41,15 +46,14 @@ exports.login = (req, res) => {
 					err: err
 				});
 	
-				res.status(200).send({
+				return res.status(200).send({
 					message: 'User finded successfully!',
 					token: token,
 					data: data
 				})
 			})
-			
 		}).catch(err => res.status(500).send({
-			message: 'Some error occured when inserting absen!',
+			message: 'Some error occured when trying to absen!',
 			err: err
 		}));
 
@@ -98,7 +102,8 @@ exports.register = (req, res) => {
 		}
 
 		fields.password = hash(fields.password || '123456');
-		return Model.query().insert(fields)
+		return Model.query().insertAndFetch(fields)
+		.withGraphFetched(Model.relationGraph)
 		.then(data => {
 			fields.id = data[0];
 			delete fields.password;

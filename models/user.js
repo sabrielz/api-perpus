@@ -1,4 +1,4 @@
-const { Model } = require('../config/objection');
+const { Model, knex } = require('../config/objection');
 const hash = require('md5');
 const path = require('path');
 
@@ -41,6 +41,14 @@ class User extends Model {
 					from: 'users.id',
 					to: 'absens.user_id'
 				}
+			},
+			literasy: {
+				relation: Model.HasManyRelation,
+				modelClass: path.join(__dirname, 'literasi'),
+				join: {
+					from: 'users.id',
+					to: 'literasy.user_id'
+				}
 			}
 		}
 	}
@@ -48,7 +56,8 @@ class User extends Model {
 	static get relationGraph() {
 		return {
 			moduls: true,
-			absens: true
+			absens: true,
+			literasy: true
 		}
 	}
 
@@ -183,5 +192,6 @@ class User extends Model {
 }
 
 module.exports = {
-	Model: User
+	Model: User,
+	knex: knex
 }

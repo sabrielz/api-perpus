@@ -1,18 +1,40 @@
 const Controller = require('./Controller');
 const { Model } = require('../models/user');
 const { IncomingForm } = require('formidable');
+const cfg = require('../config/config');
 const crypto = require('crypto');
 const path = require('path');
 const hash = require('md5');
 const fs = require('fs');
-const cfg = require('../config/config');
 
 exports.all = (req, res) => {
-	if (req.query.hasOwnProperty('paginate')) {
-		return exports.paginate(req, res);
+	let select = ['*'];
+	if (req.query.select) {
+		select = req.query.select.split(',');
 	}
 
-	return Model.query().select('*')
+	if (req.query.page) {
+		let page = req.query.page - 1 || 0;
+		let limit = cfg.pagination.limit;
+		let offset = page == 0 ? 0 : page*limit;
+		
+		return Model.query().select(select)
+		.offset(offset).limit(limit)
+		.withGraphFetched(Model.relationGraph)
+		.then(data => {
+			return res.status(200).send({
+				message: data.length + ' user selected successfully!',
+				data: data
+			})
+		}).catch(err => {
+			return res.status(500).send({
+				message: 'Some error occured when paginating user!',
+				err: err
+			})
+		})
+	}
+
+	return Model.query().select(select)
 	.withGraphFetched(Model.relationGraph)
 	.then(data => {
 		if (!data.length) return res.status(404).send({
@@ -31,33 +53,15 @@ exports.all = (req, res) => {
 	}))
 }
 
-// exports.paginates = (req, res) => {
-// 	Controller.test.prototype = () => {
-		
-// 	}
-// 	return res.json({
-// 		el: null
-// 	})
-// }
-
-exports.paginate = (req, res) => {
-	let page = req.query.page - 1 || 0;
-	let limit = cfg.pagination.limit || cfg.pagination;
-	let offset = page == 0 ? 0 : page*limit;
-	
-	return Model.query().select('*')
-	.offset(offset).limit(limit)
-	.then(data => {
-		return res.status(200).send({
-			message: limit + ' user selected successfully!',
-			data: data
-		})
-	}).catch(err => {
-		return res.status(500).send({
-			message: 'Some error occured when paginating user!',
-			err: err
-		})
-	})
+exports.count = (req, res) => {
+	return Model.query().count('id as count')
+	.then(data => res.status(200).send({
+		message: 'Table user successfully counted!',
+		data: data[0].count
+	})).catch(err => res.status(500).send({
+		message: 'Some error occured when counting data!',
+		err: err
+	}))
 }
 
 exports.get = (req, res) => {
@@ -67,13 +71,13 @@ exports.get = (req, res) => {
 	.withGraphFetched(Model.relationGraph)
 	.then(data => {
 		if (!data.length) return res.status(404).send({
-			message: 'User not found!',
+			message: 'No user found with id '+id+'!',
 			err: {}
 		})
 
 		return res.status(200).send({
 			message: 'User finded successfully!',
-			data: data
+			data: data[0]
 		})
 	}).catch(err => res.status(500).send({
 		message: 'Some error occured when selecting data!',
@@ -87,11 +91,6 @@ exports.update = (req, res) => {
 	});
 
 	form.parse(req, (err, fields, files) => {
-		// if (!fields) return res.status(400).send({
-		// 	message: 'Require data to sign up!',
-		// 	err: {}
-		// });
-
 		if (err) return res.status(500).send({
 			message: 'Some error occured when parsing form!',
 			err: err
@@ -118,7 +117,8 @@ exports.update = (req, res) => {
 		}
 
 		fields.password = hash(fields.password || '123456');
-		return Model.query().insert(fields)
+		return Model.query().insertAndFetch(fields)
+		.withGraphFetched(Model.relationGraph)
 		.then(data => {
 			fields.id = data[0];
 			delete fields.password;

@@ -1,4 +1,4 @@
-const { Model } = require('../config/objection');
+const { Model, knex } = require('../config/objection');
 const path = require('path');
 
 class Absen extends Model {
@@ -14,7 +14,7 @@ class Absen extends Model {
 	static tableSchema(table) {
 		table.increments('id').primary();
 		table.timestamp('tanggal').defaultTo(knex.fn.now());
-		table.integer('user_id').unsigned();
+		table.integer('user_id').references('users.id').unsigned();
 	}
 
 	static get relationMappings() {
@@ -27,6 +27,12 @@ class Absen extends Model {
 					to: 'users.id'
 				}
 			}
+		}
+	}
+
+	static get relationGraph() {
+		return {
+			user: true
 		}
 	}
 
@@ -177,5 +183,6 @@ class Absen extends Model {
 }
 
 module.exports = {
-	Model: Absen
+	Model: Absen,
+	knex: knex
 }
