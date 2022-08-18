@@ -1,4 +1,4 @@
-const { Model, knex } = require('../config/objection');
+const { Model } = require('../config/objection');
 const path = require('path');
 
 class Absen extends Model {
@@ -177,6 +177,5 @@ class Absen extends Model {
 }
 
 module.exports = {
-	Model: Absen,
-	knex: knex
+	Model: Absen
 }

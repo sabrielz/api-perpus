@@ -1,4 +1,4 @@
-const { Model, knex } = require('../models/modul');
+const { Model } = require('../models/modul');
 const { IncomingForm } = require('formidable');
 const path = require('path');
 const crypto = require('crypto');
@@ -6,22 +6,41 @@ const fs = require('fs');
 
 module.exports = (type, limit = 8) => new class ModulController {
 
+	all(req, res) {
+		if (req.query.page) return this.paginate(req, res);
+
+		let select = ['*'];
+		if (req.query.select) {
+			select = req.query.select.split(',');
+		}
+
+		Model.query().select(select).where({ type: type })
+		.withGraphFetched(Model.fetchGraph)
+		.then(data => res.status(200).send({
+			message: 'All '+type+' successfully selected!',
+			data: data
+		})).catch(err => res.status(500).send({
+			message: 'Some error occured when selecting '+type+'!',
+			err: err
+		}))
+	}
+
 	paginate(req, res) {
-		let page = req.query.page || 0;
+		let page = req.query.page - 1 || 0;
 		let offset = page == 0 ? 0 : page*limit;
 	
 		Model.query().where({ type: type }).orderBy('id', 'DESC')
 		.limit(limit).offset(offset)
 		.then(data => res.status(200).send({
-			message: limit + ' data successfully selected!',
+			message: limit+' '+ type +' successfully selected!',
 			data: data
 		})).catch(err => res.status(500).send({
-			message: 'Some error occured when selecting data!',
+			message: 'Some error occured when selecting '+type+'!',
 			err: err
 		}))
 	}
 
-	read(req, res) {
+	get(req, res) {
 		let id = req.params.id
 
 		Model.query().where({ type: type, id: id })

@@ -1,4 +1,4 @@
-const { Model, knex } = require('../models/absen');
+const { Model } = require('../models/absen');
 
 exports.all = (req, res) => {
 	Model.query().withGraphFetched({

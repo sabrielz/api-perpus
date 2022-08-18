@@ -1,4 +1,4 @@
-const { Model, knex } = require('../config/objection');
+const { Model } = require('../config/objection');
 const hash = require('md5');
 const path = require('path');
 
@@ -42,6 +42,13 @@ class User extends Model {
 					to: 'absens.user_id'
 				}
 			}
+		}
+	}
+
+	static get relationGraph() {
+		return {
+			moduls: true,
+			absens: true
 		}
 	}
 
@@ -176,6 +183,5 @@ class User extends Model {
 }
 
 module.exports = {
-	Model: User,
-	knex: knex
+	Model: User
 }

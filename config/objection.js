@@ -4,6 +4,5 @@ const knex = require('./knex');
 Model.knex(knex);
 
 module.exports = {
-	Model: Model,
-	knex: knex
+	Model: Model
 };

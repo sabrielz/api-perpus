@@ -1,4 +1,4 @@
-const { Model, knex } = require('../models/user');
+const { Model } = require('../models/user');
 const jwt = require('../config/jwt');
 const hash = require('md5');
 const { IncomingForm } = require('formidable');
@@ -16,9 +16,6 @@ exports.login = (req, res) => {
 	Model.query().where({
 		email: body.email,
 		password: hash(body.password)
-	}).withGraphFetched({
-		moduls: true,
-		absens: true
 	}).then(data => {
 		if (!data.length) {
 			return res.status(404).send({
