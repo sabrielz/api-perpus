@@ -36,6 +36,14 @@ Control user profile, except create new user.
 Modul have **type** that contain type of modul.
 Change **:type** url with ***ebook*** or ***video*** only.
 
+### URL Params (GET Methods)
+
+| Key | Default Value |
+| --- | ----- |
+| paginate | `null` |
+| page | `1` |
+| select | `*` |
+
 ### Entry Points
 
 | Method | URL | Description |
