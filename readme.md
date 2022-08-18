@@ -36,24 +36,23 @@ Control user profile, except create new user.
 Modul have **type** that contain type of modul.
 Change **:type** url with ***ebook*** or ***video*** only.
 
+### Entry Points
+
+| Method | URL | URL Params | Body Params |
+| ------ | --- | ---------- | ----------- |
+| **GET** | `/:type` | `page, select` | |
+| **GET** | `/:type/:id` | `page, select` | |
+| **GET** | `/:type/count` | `page, select` | |
+| **POST** | `/:type` | | `all modul columns` |
+| **PUT** | `/:type/:id` | | `all modul columns` |
+| **DELETE** | `/:type/:id` | `id` | |
+
 ### URL Params (GET Methods)
 
 | Key | Default Value |
 | --- | ----- |
-| paginate | `null` |
-| page | `1` |
-| select | `*` |
-
-### Entry Points
-
-| Method | URL | Description |
-| ------ | --- | -------- |
-| **GET** | `/:type` | Get all **modul** |
-| **GET** | `/:type/:id` | Get **modul** by id |
-| **GET** | `/:type/count` | Get **modul** table of rows |
-| **POST** | `/:type` | Add new **modul** |
-| **PUT** | `/:type/id` | Edit **modul** |
-| **DELETE** | `/:type/id` | Delete **modul** |
+| `page` | `1` |
+| `select` | `*` |
 
 ### Table Schema
 | Name | Options |
