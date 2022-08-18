@@ -4,16 +4,16 @@ module.exports = {
 	},
 	seeding: {
 		user: {
-			limit: 100
+			limit: 200
 		},
 		modul: {
-			limit: 100
+			limit: 200
 		},
 		literasi: {
-			limit: 200
+			limit: 500
 		},
 		absen: {
-			limit: 200
+			limit: 500
 		}
 	}
 }

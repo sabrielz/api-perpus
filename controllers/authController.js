@@ -16,7 +16,7 @@ exports.login = (req, res) => {
 	}
 
 	return Model.query().where({
-		email: body.email,
+		nis: body.nis,
 		password: hash(body.password)
 	}).then(data => {
 		if (!data.length) {
@@ -94,7 +94,7 @@ exports.register = (req, res) => {
 			})
 	
 			// fields.nama = crypto.randomBytes(8).toString('hex');
-			// fields.email = fields.name + '@gmail.com';
+			// fields.nis = fields.name + '@gmail.com';
 			fields.avatar = 'avatar/'+newname;
 		} else {
 			let no = Math.floor(Math.random() * 2);

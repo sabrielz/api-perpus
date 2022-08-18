@@ -16,6 +16,7 @@ class User extends Model {
 		table.increments('id').primary();
 		table.string('nama');
 		table.string('email').unique();
+		table.integer('nis').unique();
 		table.string('password').defaultTo(hash('123456'));
 		table.string('ttl');
 		table.string('sekolah');

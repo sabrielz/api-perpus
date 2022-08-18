@@ -62,7 +62,7 @@ exports.seed = (req, res) => {
 	let table = Model.tableName;
 
 	knex(table).insert(seed)
-	.then(seed => res.status(200).send({
+	.then(data => res.status(200).send({
 		message: 'Table '+table+' seeded successfully!',
 		data: JSON.parse(JSON.stringify(seed))
 	})).catch(err => res.status(500).send({

@@ -6,12 +6,13 @@ let cfg = require('../config/config');
 module.exports = () => {
 
 	let limit = cfg.seeding.user.limit, seeds = [];
-	let no = () => Math.floor(Math.random() * 2);
+	let no = (lm) => Math.floor(Math.random() * lm || 2);
 
 	seeds = [
 		{
 			nama: "Sabriel",
 			email: "sabriel@gmail.com",
+			nis: 123456,
 			password: hash('123456'),
 			ttl: "Pekalongan",
 			sekolah: "SMKMUHBLIGO",
@@ -26,6 +27,7 @@ module.exports = () => {
 		seeds.push({
 			nama: nama,
 			email: email,
+			nis: no(999999),
 			password: hash('123456'),
 			ttl: "Pekalongan",
 			sekolah: "SMKMUHBLIGO",

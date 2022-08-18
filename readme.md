@@ -28,7 +28,7 @@ with **json web token**.
 ### Entry Points
 | Method | URL | Body Params |
 | ------ | --- | ------ |
-| **POST** | `/login` | `email, password` |
+| **POST** | `/login` | `nis, password` |
 | **POST** | `/register` | `all user columns` |
 | **POST** | `/check` | `check jwt token` |
 
@@ -41,6 +41,7 @@ Control user profile, except create new user.
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/user` | `?page&select` | |
 | **GET** | `/user/:id` | `id` | |
+| **GET** | `/user/nis/:id` | `id` | |
 | **GET** | `/user/count` | | |
 | **PUT** | `/user/:id` | `id` | `all modul columns` |
 | **DELETE** | `/user/:id` | `id` | |
@@ -50,6 +51,7 @@ Control user profile, except create new user.
 | ---- | ------- |
 | `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
 | `nama` | varchar(255) DEFAULT NULL |
+| `nis` | int(11) DEFAULT NULL |
 | `email` | varchar(255) DEFAULT NULL |
 | `password` | varchar(255) DEFAULT '123456' |
 | `ttl` | varchar(255) DEFAULT NULL |

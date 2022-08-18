@@ -10,6 +10,8 @@ module.exports = app => {
 
 	app.get('/user/count', Controller.count);
 
+	app.get('/user/nis/:id', Controller.nis);
+
 	app.get('/user/:id', Controller.get);
 
 	app.put('/user/:id', Controller.update);

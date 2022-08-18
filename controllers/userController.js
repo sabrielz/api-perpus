@@ -85,6 +85,27 @@ exports.get = (req, res) => {
 	}))
 }
 
+exports.nis = (req, res) => {
+	let nis = req.params.nis;
+
+	return Model.query().where({ nis: nis })
+	.withGraphFetched(Model.relationGraph)
+	.then(data => {
+		if (!data.length) return res.status(404).send({
+			message: 'No user found with nis '+nis+'!',
+			err: {}
+		})
+
+		return res.status(200).send({
+			message: 'User finded successfully!',
+			data: data[0]
+		})
+	}).catch(err => res.status(500).send({
+		message: 'Some error occured when selecting data!',
+		err: err
+	}))
+}
+
 exports.update = (req, res) => {
 	let form = new IncomingForm({
 		multiples: true,
