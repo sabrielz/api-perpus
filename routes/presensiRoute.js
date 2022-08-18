@@ -16,6 +16,8 @@ module.exports = app => {
 	
 		app.get(base+'/count', Controller.count);
 	
+		app.get(base+'/user/:id', Controller.user);
+
 		app.get(base+'/:id', Controller.get);
 	
 		app.post(base, Controller.store);

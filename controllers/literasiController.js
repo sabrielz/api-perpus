@@ -81,6 +81,27 @@ exports.get = (req, res) => {
 	}))
 }
 
+exports.user = (req, res) => {
+	let id = req.params.id;
+
+	return Model.query().where({ user_id: id })
+	.withGraphFetched(Model.relationGraph)
+	.then(data => {
+		if (!data.length) return res.status(404).send({
+			message: 'No literasi found with id user '+id+'!',
+			err: {}
+		})
+
+		return res.status(200).send({
+			message: 'Literasi finded successfully!',
+			data: data
+		})
+	}).catch(err => res.status(500).send({
+		message: 'Some error occured when selecting data!',
+		err: err
+	}))
+}
+
 exports.store = (req, res) => {
 
 	let form = new IncomingForm({

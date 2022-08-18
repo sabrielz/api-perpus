@@ -1,7 +1,6 @@
 const cfg = require('../config/config');
 const { Model } = require('../models/absen');
 
-let table = Model.tableName;
 let limit = cfg.pagination.limit || 8;
 
 exports.all = (req, res) => {
@@ -71,6 +70,27 @@ exports.get = (req, res) => {
 		return res.status(200).send({
 			message: 'Absen finded successfully!',
 			data: data[0]
+		})
+	}).catch(err => res.status(500).send({
+		message: 'Some error occured when selecting data!',
+		err: err
+	}))
+}
+
+exports.user = (req, res) => {
+	let id = req.params.id;
+
+	return Model.query().where({ user_id: id })
+	.withGraphFetched(Model.relationGraph)
+	.then(data => {
+		if (!data.length) return res.status(404).send({
+			message: 'No absen found with id user '+id+'!',
+			err: {}
+		})
+
+		return res.status(200).send({
+			message: 'Absen finded successfully!',
+			data: data
 		})
 	}).catch(err => res.status(500).send({
 		message: 'Some error occured when selecting data!',

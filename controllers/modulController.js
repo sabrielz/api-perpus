@@ -262,6 +262,24 @@ module.exports = (type, limit) => {
 			}))
 		}
 
+		if (req.query.page) {
+			let page = req.query.page || 0;
+			page = page > 0 ? page - 1 : 0;
+			let offset = page == 0 ? 0 : page*limit;
+
+			return Model.query().select(select)
+			.orderBy('id', 'DESC')
+			.limit(limit).offset(offset)
+			.withGraphFetched(Model.relationGraph)
+			.then(data => res.status(200).send({
+				message: data.length+' modul successfully selected!',
+				data: data
+			})).catch(err => res.status(500).send({
+				message: 'Some error occured when selecting modul!',
+				err: err
+			}))
+		}
+
 		return Model.query().select(select)
 		.orderBy('id', 'DESC')
 		.withGraphFetched(Model.relationGraph)

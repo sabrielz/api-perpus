@@ -66,6 +66,8 @@ Change **:type** url with ***ebook*** or ***video*** only.
 ### Entry Points
 | Method | URL | URL Params | Body Params |
 | ------ | --- | ---------- | ----------- |
+| **GET** | `/modul` | `?search&page&select` | |
+| **GET** | `/modul/count` | | |
 | **GET** | `/:type` | `?page&select` | |
 | **GET** | `/:type/:id` | `id` | |
 | **GET** | `/:type/count` | | |
@@ -96,6 +98,7 @@ when user login or accessing `/login` successfully.
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/absen` | `?page&select` | |
 | **GET** | `/absen/:id` | `id` | |
+| **GET** | `/absen/user/:id` | `id` | |
 | **GET** | `/absen/count` | | |
 | **POST** | `/absen` | | `all absen columns` |
 | **PUT** | `/absen/:id` | `id` | `all absen columns` |
@@ -117,6 +120,7 @@ same as absen.
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/literasi` | `?page&select` | |
 | **GET** | `/literasi/:id` | `id` | |
+| **GET** | `/literasi/user/:id` | `id` | |
 | **GET** | `/literasi/count` | | |
 | **POST** | `/literasi` | | `all literasi columns` |
 | **PUT** | `/literasi/:id` | `id` | `all literasi columns` |
