@@ -2,11 +2,15 @@ let faker = require('random-words');
 let sluger = require('slugify');
 let cfg = require('../config/config');
 
-module.exports = () => {
+// module.exports = () => {
 	let seeds = [];
 	let type = ['ebook', 'video'];
 	let limit = cfg.seeding.modul.limit;
-	let rand = (lm) => Math.floor(Math.random() * lm + 1);
+	let rand = (lm) => {
+		let num = Math.floor(Math.random() * lm);
+		if (num <= 0 || num >= lm+1) rand(lm);
+		else return num;
+	};
 
 	for (var i = 0; i < limit; i++) {
 		let title = faker({ exactly: 6, join: ' '});
@@ -18,9 +22,9 @@ module.exports = () => {
 			thumbnail: 'http://localhost:4000/modul/seed.jpg',
 			file: 'http://localhost:4000/modul/seed.jpg',
 			type: type[rand(2)],
-			user_id: rand(cfg.seeding.user.limit - 1)
+			user_id: rand(cfg.seeding.user.limit)
 		});
 	}
 
-	return seeds;
-}
+	module.exports = seeds;
+// }

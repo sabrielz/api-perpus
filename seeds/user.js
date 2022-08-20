@@ -3,10 +3,14 @@ let sluger = require('slugify');
 let hash = require('md5');
 let cfg = require('../config/config');
 
-module.exports = () => {
+// module.exports = {
 
 	let limit = cfg.seeding.user.limit, seeds = [];
-	let no = (lm) => Math.floor(Math.random() * lm || 2);
+	let no = (lm = 2) => {
+		let num = Math.floor(Math.random() * lm);
+		if (num <= 0 || num >= lm+1) no(lm);
+		else return num;
+	};
 
 	seeds = [
 		{
@@ -17,11 +21,12 @@ module.exports = () => {
 			ttl: "Pekalongan",
 			sekolah: "SMKMUHBLIGO",
 			alasan: "Debugging",
-			avatar: 'avatar/default'+no()+'.png'
+			avatar: 'avatar/default'+no()+'.png',
+			role_id: 3
 		}
 	];
 
-	for (var i = 0; i < limit; i++) {
+	for (var i = 1; i < limit; i++) {
 		let nama = faker({ min: 2, max: 3, join: ' '});
 		let email = sluger(nama, '') + '@email.com';
 		seeds.push({
@@ -32,9 +37,10 @@ module.exports = () => {
 			ttl: "Pekalongan",
 			sekolah: "SMKMUHBLIGO",
 			alasan: "Debugging",
-			avatar: 'avatar/default'+no()+'.png'
+			avatar: 'avatar/default'+no()+'.png',
+			role_id: no(2)
 		});
 	}
 
-	return seeds;
-}
+	module.exports = seeds;
+// }
