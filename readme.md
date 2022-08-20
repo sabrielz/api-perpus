@@ -69,10 +69,10 @@ Control user profile, except create new user.
 | `role_id` | int(10) unsigned DEFAULT `1` |
 
 # ROLE
-***RESTRIECTED MODEL***
+***!!! RESTRIECTED MODEL !!!***
 
 ### ENTRY POINTS
-***THIS MODEL NOT HAVE ENTRY POINTS***
+***!!! THIS MODEL DO NOT HAVE ENTRY POINTS !!!***
 
 ### TABLE SCHEMA
 | Name | Options |
