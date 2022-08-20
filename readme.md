@@ -11,7 +11,8 @@ otherwise catched by **express** directly.
 # Schema Utility
 Utility to control schema. Like migrate, drop, truncate, etc.
 Entry points without url params execute all tables, but
-the table list not dynamic
+the table list `not dynamic`. Change it on `config/config.js` file.
+Execute all tables will `ignore all` error or warning.
 
 ### Entry Points
 | Method | URL | URL Params |
@@ -59,12 +60,13 @@ Control user profile, except create new user.
 | `nama` | varchar(255) DEFAULT NULL |
 | `nis` | int(11) DEFAULT NULL |
 | `email` | varchar(255) DEFAULT NULL |
-| `password` | varchar(255) DEFAULT '123456' |
+| `password` | varchar(255) DEFAULT `'123456'` |
 | `ttl` | varchar(255) DEFAULT NULL |
 | `sekolah` | varchar(255) DEFAULT NULL |
 | `alasan` | text DEFAULT NULL |
 | `avatar` | varchar(255) DEFAULT NULL |
 | `hp` | varchar(255) DEFAULT NULL |
+| `role_id` | int(10) unsigned DEFAULT `1` |
 
 # Modul
 Require **json web token** to access.
