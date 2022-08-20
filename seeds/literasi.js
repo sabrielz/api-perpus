@@ -5,7 +5,7 @@ let cfg = require('../config/config');
 	let limit = cfg.seeding.literasi.limit, seeds = [];
 	let rand = (lm) => {
 		let num = Math.floor(Math.random() * lm);
-		if (num <= 0 || num > lm) return rand(lm);
+		if (num < 1 || num > lm) return rand(lm);
 		else return num;
 	};
 

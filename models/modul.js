@@ -20,7 +20,7 @@ class Modul extends Model {
 
 	static get relationMappings() {
 		const { Model: User } = require('./user');
-		const { Model: Absen } = require('./absen');
+		const { Model: Litersi } = require('./literasi');
 
 		return {
 			user: {
@@ -32,11 +32,11 @@ class Modul extends Model {
 				}
 			},
 			absens: {
-				relation: Absen.HasManyRelation,
-				modelClass: Absen,
+				relation: Litersi.HasManyRelation,
+				modelClass: Litersi,
 				join: {
 					from: this.tableName+'.id',
-					to: Absen.tableName+'.model_id'
+					to: Litersi.tableName+'.modul_id'
 				}
 			}
 		}

@@ -4,7 +4,7 @@ let cfg = require('../config/config');
 
 // module.exports = () => {
 	let seeds = [];
-	let type = ['ebook', 'video'];
+	let type = ['', 'ebook', 'video'];
 	let limit = cfg.seeding.modul.limit;
 	let rand = (lm) => {
 		let num = Math.floor(Math.random() * lm);
@@ -19,9 +19,9 @@ let cfg = require('../config/config');
 			title: title,
 			slug: slug,
 			desc: faker({ exactly: 15, join: ' ' }),
-			thumbnail: 'http://localhost:4000/modul/seed.jpg',
-			file: 'http://localhost:4000/modul/seed.jpg',
-			type: type[rand(2)],
+			thumbnail: 'modul/seed.jpg',
+			file: 'modul/seed.jpg',
+			type: type[rand(3)],
 			user_id: rand(cfg.seeding.user.limit)
 		});
 	}

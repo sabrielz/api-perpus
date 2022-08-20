@@ -147,7 +147,7 @@ exports.seeds = (req, res) => {
 			let table = cfg.model[name].tableName;
 
 			await knex(table).insert(seed)
-			.catch(err => {throw err});
+			.catch(err => {});
 		}
 	}
 
