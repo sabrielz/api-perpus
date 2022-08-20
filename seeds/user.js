@@ -28,7 +28,7 @@ let cfg = require('../config/config');
 
 	for (var i = 1; i < limit; i++) {
 		let nama = faker({ min: 2, max: 3, join: ' '});
-		let email = sluger(nama, '') + '@email.com';
+		let email = sluger(nama, '') + '@gmail.com';
 		seeds.push({
 			nama: nama,
 			email: email,
