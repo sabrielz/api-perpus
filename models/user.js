@@ -4,12 +4,8 @@ const path = require('path');
 
 class User extends Model {
 
-	static get tableName() {
-		return 'users';
-	}
-
-	static get idColumn() {
-		return 'id';
+	static get modelName() {
+		return 'user';
 	}
 
 	static tableSchema(table) {
@@ -23,173 +19,51 @@ class User extends Model {
 		table.text('alasan');
 		table.string('avatar');
 		table.string('hp');
+		table.integer('role_id').references('roles.id').unsigned().defaultTo(1);
 	}
 
 	static get relationMappings() {
+		const { Model: Modul } = require('./modul');
+		const { Model: Absen } = require('./absen');
+		const { Model: Literasi } = require('./literasi');
+		const { Model: Role } = require('./role');
+
 		return {
 			moduls: {
 				relation: Model.HasManyRelation,
-				modelClass: path.join(__dirname, 'modul'),
+				modelClass: Modul,
 				join: {
-					from: 'users.id',
-					to: 'moduls.user_id'
+					from: this.tableName+'.id',
+					to: Modul.tableName+'.user_id'
 				}
 			},
 			absens: {
 				relation: Model.HasManyRelation,
-				modelClass: path.join(__dirname, 'absen'),
+				modelClass: Absen,
 				join: {
-					from: 'users.id',
-					to: 'absens.user_id'
+					from: this.tableName+'.id',
+					to: Absen.tableName+'.user_id'
 				}
 			},
 			literasy: {
 				relation: Model.HasManyRelation,
-				modelClass: path.join(__dirname, 'literasi'),
+				modelClass: Literasi,
 				join: {
-					from: 'users.id',
-					to: 'literasy.user_id'
+					from: this.tableName+'.id',
+					to: Literasi.tableName+'.user_id'
 				}
-			}
+			},
+			role: {
+				relation: Model.BelongsToOneRelation,
+				modelClass: Role,
+				join: {
+					from: this.tableName+'.role_id',
+					to: Role.tableName+'.id'
+				}
+			},
 		}
 	}
 
-	static get relationGraph() {
-		return {
-			moduls: true,
-			absens: true,
-			literasy: true
-		}
-	}
-
-	// static get relationMappings() {
-	// 	return {
-	// 		absen: {
-	// 			relation: Model.HasManyRelation,
-	// 			modelClass: require('./absen'),
-	// 			join: {
-	// 				from: 'users.id',
-	// 				to: 'absens.user_id'
-	// 			}
-	// 		}
-	// 	}
-	// }
-
-	// static get relationMappings() {
-	// 	// Importing models here is one way to avoid require loops.
-	// 	// const Animal = require('./Animal');
-	// 	// const Movie = require('./Movie');
-
-	// 	// return {
-	// 	// 	pets: {
-	// 	// 		relation: Model.HasManyRelation,
-	// 	// 		// The related model. This can be either a Model
-	// 	// 		// subclass constructor or an absolute file path
-	// 	// 		// to a module that exports one. We use a model
-	// 	// 		// subclass constructor `Animal` here.
-	// 	// 		modelClass: Animal,
-	// 	// 		join: {
-	// 	// 			from: 'persons.id',
-	// 	// 			to: 'animals.ownerId'
-	// 	// 		}
-	// 	// 	},
-
-	// 	// 	movies: {
-	// 	// 		relation: Model.ManyToManyRelation,
-	// 	// 		modelClass: Movie,
-	// 	// 		join: {
-	// 	// 			from: 'persons.id',
-	// 	// 			// ManyToMany relation needs the `through` object
-	// 	// 			// to describe the join table.
-	// 	// 			through: {
-	// 	// 				// If you have a model class for the join table
-	// 	// 				// you need to specify it like this:
-	// 	// 				// modelClass: PersonMovie,
-	// 	// 				from: 'persons_movies.personId',
-	// 	// 				to: 'persons_movies.movieId'
-	// 	// 			},
-	// 	// 			to: 'movies.id'
-	// 	// 		}
-	// 	// 	},
-
-	// 	// 	children: {
-	// 	// 		relation: Model.HasManyRelation,
-	// 	// 		modelClass: Person,
-	// 	// 		join: {
-	// 	// 			from: 'persons.id',
-	// 	// 			to: 'persons.parentId'
-	// 	// 		}
-	// 	// 	},
-
-	// 	// 	parent: {
-	// 	// 		relation: Model.BelongsToOneRelation,
-	// 	// 		modelClass: Person,
-	// 	// 		join: {
-	// 	// 			from: 'persons.parentId',
-	// 	// 			to: 'persons.id'
-	// 	// 		}
-	// 	// 	}
-	// 	// };
-	// }
-
-
-	// This object defines the relations to other models.
-	// static get relationMappings() {
-	// 	// Importing models here is one way to avoid require loops.
-	// 	const Animal = require('./Animal');
-	// 	const Movie = require('./Movie');
-
-	// 	return {
-	// 		pets: {
-	// 			relation: Model.HasManyRelation,
-	// 			// The related model. This can be either a Model
-	// 			// subclass constructor or an absolute file path
-	// 			// to a module that exports one. We use a model
-	// 			// subclass constructor `Animal` here.
-	// 			modelClass: Animal,
-	// 			join: {
-	// 				from: 'persons.id',
-	// 				to: 'animals.ownerId'
-	// 			}
-	// 		},
-
-	// 		movies: {
-	// 			relation: Model.ManyToManyRelation,
-	// 			modelClass: Movie,
-	// 			join: {
-	// 				from: 'persons.id',
-	// 				// ManyToMany relation needs the `through` object
-	// 				// to describe the join table.
-	// 				through: {
-	// 					// If you have a model class for the join table
-	// 					// you need to specify it like this:
-	// 					// modelClass: PersonMovie,
-	// 					from: 'persons_movies.personId',
-	// 					to: 'persons_movies.movieId'
-	// 				},
-	// 				to: 'movies.id'
-	// 			}
-	// 		},
-
-	// 		children: {
-	// 			relation: Model.HasManyRelation,
-	// 			modelClass: Person,
-	// 			join: {
-	// 				from: 'persons.id',
-	// 				to: 'persons.parentId'
-	// 			}
-	// 		},
-
-	// 		parent: {
-	// 			relation: Model.BelongsToOneRelation,
-	// 			modelClass: Person,
-	// 			join: {
-	// 				from: 'persons.parentId',
-	// 				to: 'persons.id'
-	// 			}
-	// 		}
-	// 	};
-	// }
 }
 
 module.exports = {

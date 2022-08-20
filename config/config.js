@@ -15,5 +15,22 @@ module.exports = {
 		absen: {
 			limit: 500
 		}
+	},
+	model: {
+		role: {
+			tableName: 'roles'
+		},
+		user: {
+			tableName: 'users'
+		},
+		modul: {
+			tableName: 'moduls'
+		},
+		literasi: {
+			tableName: 'literasy'
+		},
+		absen: {
+			tableName: 'absens'
+		},
 	}
 }

@@ -3,24 +3,24 @@ const { Model, knex } = require('../config/objection');
 class Absen extends Model {
 
 	static get modelName() {
-		return 'absen';
+		return 'role';
 	}
 
 	static tableSchema(table) {
 		table.increments('id').primary();
-		table.timestamp('tanggal').defaultTo(knex.fn.now());
-		table.integer('user_id').references('users.id').unsigned();
+		table.string('name');
 	}
 
 	static get relationMappings() {
-		const { Model: User } = require('./user');
+		let { Model: User } = require('./user');
+
 		return {
-			user: {
-				relation: Model.BelongsToOneRelation,
+			users: {
+				relation: Model.HasManyRelation,
 				modelClass: User,
 				join: {
-					from: this.tableName+'.user_id',
-					to: User.tableName+'.id'
+					from: this.tableName+'.id',
+					to: User.tableName+'.role_id'
 				}
 			}
 		}
