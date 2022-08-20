@@ -10,15 +10,20 @@ otherwise catched by **express** directly.
 
 # Schema Utility
 Utility to control schema. Like migrate, drop, truncate, etc.
+Entry points without url
 
 ### Entry Points
-| Method | URL |
-| ------ | --- |
-| **GET** | `/api/migrate/:table` |
-| **GET** | `/api/drop/:table` |
-| **GET** | `/api/truncate/:table` |
-| **GET** | `/api/seed/:table` |
-| **GET** | `/api/remigrate/:table` |
+| Method | URL | URL Params |
+| ------ | --- | ---------- |
+| **GET** | `/api/migrate` | |
+| **GET** | `/api/migrate/:table` | `table` |
+| **GET** | `/api/drop` | |
+| **GET** | `/api/drop/:table` | `table` |
+| **GET** | `/api/truncate` | |
+| **GET** | `/api/truncate/:table` | `table` |
+| **GET** | `/api/seed` | |
+| **GET** | `/api/seed/:table` | `table` |
+| **GET** | `/api/remigrate/:table` | `table` |
 
 # Auth
 Require **json web token** except `/register`.

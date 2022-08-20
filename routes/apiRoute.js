@@ -10,8 +10,6 @@ module.exports = app => {
 
 	app.get('/api/drop/:table', Controller.drop);
 
-	app.get('/api/remigrate', Controller.remigrates);
-
 	app.get('/api/remigrate/:table', Controller.remigrate);
 
 	app.get('/api/truncate', Controller.truncates);

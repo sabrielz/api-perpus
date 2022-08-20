@@ -123,22 +123,6 @@ exports.remigrate = (req, res) => {
 	}))
 }
 
-exports.remigrates = (req, res) => {
-	let result = async () => {
-		await exports.drops(req, res);
-		await exports.drops(req, res);
-		await exports.migrate(req, res);
-		await exports.migrate(req, res);
-	}
-
-	return result().then({
-		message: 'All table created successfully!'
-	}).catch(err => res.status(200).send({
-		message: 'Some error occured when creating all table!',
-		err: err
-	}));
-}
-
 exports.seed = (req, res) => {
 	// const { Model } = require('../models/'+req.params.table);
 	const seed = require('../seeds/'+req.params.table);
