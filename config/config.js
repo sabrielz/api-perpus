@@ -32,5 +32,6 @@ module.exports = {
 		absen: {
 			tableName: 'absens'
 		},
-	}
+		list: ['role', 'user', 'absen', 'modul', 'literasi']
+	},
 }

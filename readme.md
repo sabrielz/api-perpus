@@ -10,7 +10,8 @@ otherwise catched by **express** directly.
 
 # Schema Utility
 Utility to control schema. Like migrate, drop, truncate, etc.
-Entry points without url
+Entry points without url params execute all tables, but
+the table list not dynamic
 
 ### Entry Points
 | Method | URL | URL Params |

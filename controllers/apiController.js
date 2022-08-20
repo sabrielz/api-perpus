@@ -1,6 +1,6 @@
 const { knex } = require('../config/objection');
 const cfg = require('../config/config');
-const models = ['role', 'user', 'absen', 'modul', 'literasi'];
+let models = cfg.model.list;
 
 exports.migrate = (req, res) => {
 	const { Model, knex } = require('../models/'+req.params.table);
