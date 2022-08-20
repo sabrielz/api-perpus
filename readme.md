@@ -80,6 +80,13 @@ Control user profile, except create new user.
 | `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
 | `name` | varchar(255) DEFAULT NULL |
 
+### TABLE CONTENTS
+| Id | Name |
+| -- | ---- |
+| `1` | `siswa` |
+| `2` | `guru` |
+| `3` | `admin` |
+
 # MODUL
 Require **json web token** to access.
 Modul have **type** that contain type of modul.
