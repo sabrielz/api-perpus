@@ -1,6 +1,6 @@
-# **Documentation API Perpus**
+# **DOCUMENTATION API PERPUS**
 
-# Overview
+# OVERVIEW
 **Json Web Token** Authorization currently disabled for
 development reason. Enable this in all of **routes**
 directory except **Route.js** by uncomment line `app.use(Auth.verify...`.
@@ -8,13 +8,13 @@ This development using **axios** and **Postman** for testing.
 For **multipart** form content-type, input catched by **formidable**,
 otherwise catched by **express** directly.
 
-# Schema Utility
+# SCHEMA UTILITY
 Utility to control schema. Like migrate, drop, truncate, etc.
-Entry points without url params execute all tables, but
+Entry points without url params execute `all tables`, but
 the table list `not dynamic`. Change it on `config/config.js` file.
 Execute all tables will `ignore all` error or warning.
 
-### Entry Points
+### ENTRY POINTS
 | Method | URL | URL Params |
 | ------ | --- | ---------- |
 | **GET** | `/api/migrate` | |
@@ -27,23 +27,23 @@ Execute all tables will `ignore all` error or warning.
 | **GET** | `/api/seed/:table` | `table` |
 | **GET** | `/api/remigrate/:table` | `table` |
 
-# Auth
+# AUTH
 Require **json web token** except `/register`.
 Create new user, or authenticate user to access api
 with **json web token**.
 
-### Entry Points
+### ENTRY POINTS
 | Method | URL | Body Params |
 | ------ | --- | ------ |
 | **POST** | `/login` | `nis, password` |
 | **POST** | `/register` | `all user columns` |
 | **POST** | `/check` | `check jwt token` |
 
-# User
+# USER
 Require **json web token** to access.
 Control user profile, except create new user.
 
-### Entry Points
+### ENTRY POINTS
 | Method | URL | URL Params | Body Params |
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/user` | `?page&select` | |
@@ -53,7 +53,7 @@ Control user profile, except create new user.
 | **PUT** | `/user/:id` | `id` | `all modul columns` |
 | **DELETE** | `/user/:id` | `id` | |
 
-### Table Schema
+### TABLE SCHEMA
 | Name | Options |
 | ---- | ------- |
 | `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
@@ -68,12 +68,24 @@ Control user profile, except create new user.
 | `hp` | varchar(255) DEFAULT NULL |
 | `role_id` | int(10) unsigned DEFAULT `1` |
 
-# Modul
+# ROLE
+**RESTRIECTED MODEL**
+
+### ENTRY POINTS
+**THIS MODEL NOT HAVE ENTRY POINTS**
+
+### TABLE SCHEMA
+| Name | Options |
+| ---- | ------- |
+| `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
+| `name` | varchar(255) DEFAULT NULL |
+
+# MODUL
 Require **json web token** to access.
 Modul have **type** that contain type of modul.
 Change **:type** url with ***ebook*** or ***video*** only.
 
-### Entry Points
+### ENTRY POINTS
 | Method | URL | URL Params | Body Params |
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/modul` | `?search&page&select` | |
@@ -85,7 +97,7 @@ Change **:type** url with ***ebook*** or ***video*** only.
 | **PUT** | `/:type/:id` | `id` | `all modul columns` |
 | **DELETE** | `/:type/:id` | `id` | |
 
-### Table Schema
+### TABLE SCHEMA
 | Name | Options |
 | --- | --- |
 | `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
@@ -99,11 +111,11 @@ Change **:type** url with ***ebook*** or ***video*** only.
 | `created_at` | timestamp NOT NULL DEFAULT current_timestamp() |
 | `updated_at` | timestamp NOT NULL DEFAULT current_timestamp() |
 
-# Absen
+# ABSEN
 Not require **json web token** to access. Embeded automatically
 when user login or accessing `/login` successfully.
 
-### Entry Points
+### ENTRY POINTS
 | Method | URL | URL Params | Body Params |
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/absen` | `?page&select` | |
@@ -114,18 +126,18 @@ when user login or accessing `/login` successfully.
 | **PUT** | `/absen/:id` | `id` | `all absen columns` |
 | **DELETE** | `/absen/:id` | `id` | |
 
-### Table Schema
+### TABLE SCHEMA
 | Name | Options |
 | --- | --- |
 | `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
 | `tanggal` | timestamp NOT NULL DEFAULT current_timestamp() |
 | `user_id` | int(10) unsigned DEFAULT NULL |
 
-# Literasi
+# LITERASI
 Require **json web token** to access. The entry points
 same as absen.
 
-### Entry Points
+### ENTRY POINTS
 | Method | URL | URL Params | Body Params |
 | ------ | --- | ---------- | ----------- |
 | **GET** | `/literasi` | `?page&select` | |
@@ -136,7 +148,7 @@ same as absen.
 | **PUT** | `/literasi/:id` | `id` | `all literasi columns` |
 | **DELETE** | `/literasi/:id` | `id` | |
 
-### Table Schema
+### TABLE SCHEMA
 | Name | Options |
 | --- | --- |
 | `id` | int(10) unsigned NOT NULL AUTO_INCREMENT |
