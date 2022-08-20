@@ -6,9 +6,9 @@ let cfg = require('../config/config');
 // module.exports = {
 
 	let limit = cfg.seeding.user.limit, seeds = [];
-	let no = (lm = 2) => {
+	let rand = (lm = 2) => {
 		let num = Math.floor(Math.random() * lm);
-		if (num <= 0 || num >= lm+1) no(lm);
+		if (num <= 0 || num > lm) return rand(lm);
 		else return num;
 	};
 
@@ -21,7 +21,7 @@ let cfg = require('../config/config');
 			ttl: "Pekalongan",
 			sekolah: "SMKMUHBLIGO",
 			alasan: "Debugging",
-			avatar: 'avatar/default'+no()+'.png',
+			avatar: 'avatar/default'+rand()+'.png',
 			role_id: 3
 		}
 	];
@@ -32,13 +32,13 @@ let cfg = require('../config/config');
 		seeds.push({
 			nama: nama,
 			email: email,
-			nis: no(999999),
+			nis: rand(999999),
 			password: hash('123456'),
 			ttl: "Pekalongan",
 			sekolah: "SMKMUHBLIGO",
 			alasan: "Debugging",
-			avatar: 'avatar/default'+no()+'.png',
-			role_id: no(2)
+			avatar: 'avatar/default'+rand()+'.png',
+			role_id: rand(2)
 		});
 	}
 
