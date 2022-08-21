@@ -1,10 +1,10 @@
-const Controller = require('./Controller');
+// const Controller = require('./Controller');
 const { Model } = require('../models/user');
 const { IncomingForm } = require('formidable');
 const cfg = require('../config/config');
 const crypto = require('crypto');
 const path = require('path');
-const hash = require('md5');
+// const hash = require('md5');
 const fs = require('fs');
 
 exports.all = (req, res) => {
@@ -112,10 +112,18 @@ exports.update = (req, res) => {
 	});
 
 	form.parse(req, (err, fields, files) => {
+		console.log(req.params.id);
 		if (err) return res.status(500).send({
 			message: 'Some error occured when parsing form!',
 			err: err
 		})
+		
+		if (!fields && !files) {
+			return res.status(404).send({
+				message: 'Require content to insert data!',
+				err: {}
+			});
+		}
 
 		if (files.avatar) {
 			let dotParse = files.avatar.originalFilename.split('.');
@@ -132,22 +140,16 @@ exports.update = (req, res) => {
 			})
 	
 			fields.avatar = 'avatar/'+newname;
-		} else {
-			let no = Math.floor(Math.random() * 2);
-			fields.avatar = 'avatar/default'+no+'.png';
 		}
 
-		fields.password = hash(fields.password || '123456');
-		return Model.query().insertAndFetch(fields)
+		let id = req.params.id;
+
+		return Model.query().updateAndFetchById(id, fields)
 		.withGraphFetched(Model.relationGraph)
-		.then(data => {
-			fields.id = data[0];
-			delete fields.password;
-			return res.status(200).send({
-				message: 'User updated successfully!',
-				data: fields
-			})
-		}).catch(err => res.status(500).send({
+		.then(data => res.status(200).send({
+			message: 'User updated successfully!',
+			data: data
+		})).catch(err => res.status(500).send({
 			message: 'Some error occured when updating user!',
 			err: err
 		}));
