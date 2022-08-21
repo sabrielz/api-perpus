@@ -107,11 +107,12 @@ exports.nis = (req, res) => {
 }
 
 exports.update = (req, res) => {
+	
 	let form = new IncomingForm({
 		multiples: true,
 	});
 
-	form.parse(req, (err, fields, files) => {
+	return form.parse(req, (err, fields, files) => {
 		console.log(req.params.id);
 		if (err) return res.status(500).send({
 			message: 'Some error occured when parsing form!',

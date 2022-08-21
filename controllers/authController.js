@@ -68,7 +68,7 @@ exports.register = (req, res) => {
 		multiples: true,
 	});
 
-	form.parse(req, (err, fields, files) => {
+	return form.parse(req, (err, fields, files) => {
 		if (!fields) return res.status(400).send({
 			message: 'Require data to sign up!',
 			err: {}

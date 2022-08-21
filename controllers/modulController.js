@@ -82,7 +82,7 @@ module.exports = (type, limit) => {
 			multiples: true,
 		});
 
-		form.parse(req, (err, fields, files) => {
+		return form.parse(req, (err, fields, files) => {
 			if (!fields && !files) {
 				return res.status(404).send({
 					message: 'Require content to insert data!',
@@ -146,7 +146,7 @@ module.exports = (type, limit) => {
 			multiples: true,
 		});
 
-		form.parse(req, (err, fields, files) => {
+		return form.parse(req, (err, fields, files) => {
 			if (!fields && !files) {
 				return res.status(404).send({
 					message: 'Require content to insert data!',
