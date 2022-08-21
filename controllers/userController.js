@@ -144,11 +144,11 @@ exports.update = (req, res) => {
 			fields.id = data[0];
 			delete fields.password;
 			return res.status(200).send({
-				message: 'User added successfully!',
+				message: 'User updated successfully!',
 				data: fields
 			})
 		}).catch(err => res.status(500).send({
-			message: 'Some error occured when inserting user!',
+			message: 'Some error occured when updating user!',
 			err: err
 		}));
 	})
